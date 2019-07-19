@@ -1,0 +1,2 @@
+export const getLat = (park) => park.latLong.slice(4).split(", long:").map(num => parseFloat(num))[0]
+export const getLong = (park) => park.latLong.slice(4).split(", long:").map(num => parseFloat(num))[1]
