@@ -2,9 +2,9 @@ const API = `http://localhost:3000/`
 
 export const getParks = () => fetch(API + 'parks').then(res => res.json())
 
-export async function getTrips() {
+export function getTrips() {
   if (localStorage.token)
-    return await (fetch(API + 'trips', {
+    return (fetch(API + 'trips', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -24,9 +24,9 @@ export const login = (user) => {
   )
 }
 
-export async function getProfile() {
+export function getProfile() {
   if (localStorage.token)
-    return await (fetch(API + 'getUser', {
+    return (fetch(API + 'getUser', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

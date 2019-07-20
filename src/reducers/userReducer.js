@@ -1,5 +1,5 @@
 let initialState = {
-
+  loggedUser: {}
 }
 
 export default (state = initialState, action) => {
@@ -12,6 +12,9 @@ export default (state = initialState, action) => {
     }
     case "HANDLE_CREATE": {
       return { ...state, loggedUser: action.data }
+    }
+    case "CLEAR_USER": {
+      return { ...state, loggedUser: {} }
     }
     default: {
       return state

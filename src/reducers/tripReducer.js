@@ -7,6 +7,9 @@ export default (state = initialState, action) => {
     case "FETCHED_TRIPS": {
       return { ...state, trips: action.data }
     }
+    case "CLEAR_TRIPS": {
+      return { ...state, trips: [] }
+    }
     default: {
       return state
     }

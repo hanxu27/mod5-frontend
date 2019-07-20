@@ -8,9 +8,9 @@ export default function SignInForm(props) {
         <Form onSubmit={props.handleSignIn} >
           <Form.Group >
             <Form.Label>Username:</Form.Label>
-            <Form.Control name="username" placeholder="Enter username" onChange={props.handleOnChange} />
+            <Form.Control name="username" placeholder="Enter username" value={props.username} onChange={props.handleOnChange} />
             <Form.Label className="mt-2">Password:</Form.Label>
-            <Form.Control type="password" name="password" placeholder="Enter password" onChange={props.handleOnChange} />
+            <Form.Control type="password" name="password" placeholder="Enter password" value={props.password} onChange={props.handleOnChange} />
           </Form.Group>
           <Button variant="primary" type="submit" >Login</Button>
           <h5 className="pt-5">Not registered?</h5>

@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+
 import { connect } from 'react-redux'
 
 import { getParks, getTrips, getProfile } from './services/backend';
-
-import ParksContainer from './containers/ParksContainer';
-
+import ContentContainer from './containers/ContentContainer';
 import NavBar from './components/NavigationBar';
-import NoMatch from './components/NoMatch';
-import Map from './components/Map';
-import Login from './containers/Login';
+
 
 class App extends Component {
 
@@ -21,37 +17,33 @@ class App extends Component {
 
   handleLogout = () => {
     localStorage.removeItem('token')
-    this.forceUpdate()
+    this.props.clearTrips()
+    this.props.clearUser()
+
   }
 
   render() {
+    console.log(this.props)
     return (
       <React.Fragment>
         <NavBar handleLogout={this.handleLogout} />
-        <Router>
-          <Switch>
-            <Route exact path="/" render={
-              () => (<Map />)
-            } />
-            <Route path="/parks" render={
-              () => (<ParksContainer />)
-            } />
-            <Route path="/login" render={
-              () => (<Login />)
-            } />
-            <Route component={NoMatch} />
-          </Switch>
-        </Router>
+        <ContentContainer />
       </React.Fragment>
     )
   }
+}
+
+let mapStateToProps = state => {
+  return (state.user.loggedUser && { user: state.user.loggedUser.id })
 }
 
 let mapDispatchToProps = dispatch => {
   return {
     fetchedParks: data => dispatch({ type: "FETCHED_PARKS", data }),
     fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
-    fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user })
+    fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
+    clearUser: () => dispatch({ type: "CLEAR_USER" }),
+    clearTrips: () => dispatch({ type: "CLEAR_TRIPS" })
   }
 }
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

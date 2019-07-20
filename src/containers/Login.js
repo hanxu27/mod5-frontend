@@ -4,6 +4,7 @@ import { login } from '../services/backend'
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 import { getTrips } from '../services/backend';
+import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
   state = {
@@ -29,6 +30,7 @@ class Login extends Component {
           this.props.handleSignIn(data.user)
           getTrips().then(this.props.fetchedTrips)
         }
+        this.setState({ username: '', password: '', firstname: '', lastname: '', profile_url: '', showSignUpForm: false })
       })
   }
   handleCreate = (e) => {
