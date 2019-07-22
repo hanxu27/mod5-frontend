@@ -4,7 +4,6 @@ import { login } from '../services/backend'
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 import { getTrips } from '../services/backend';
-import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
   state = {

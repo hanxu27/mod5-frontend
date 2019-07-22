@@ -1,23 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { CardColumns } from 'react-bootstrap';
-import ParkCard from '../components/ParkCard';
 import { connect } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-const ParksContainer = (props) => {
-  return (
-    <CardColumns>
-      {props.parks.map(park => {
-        return <ParkCard
-          key={park.id}
-          park={park}
-        // showPark={this.props.showPark}
-        // planNewVisit={this.props.planNewVisit}
-        // logPastVisit={this.props.logPastVisit} 
-        />
-      })}
-    </CardColumns>
-  )
+import ParkCard from '../components/ParkCard';
+import { displayParks } from '../actions/parkActions'
+
+class ParksContainer extends Component {
+  state = {
+    lastParkIndex: 10,
+    counter: 0
+  }
+
+  currentParks = () => displayParks(this.props.parks, this.props.search).slice(0, this.state.lastParkIndex)
+
+  handleScroll = e => {
+    console.log("object");
+    const adder = 10
+    const counter = this.state.counter + 1
+    let lastParkIndex = this.state.lastParkIndex + adder
+    this.setState({ lastParkIndex, counter })
+  }
+
+  render() {
+    return (
+      <InfiniteScroll
+        dataLength={this.state.lastParkIndex}
+        next={this.handleScroll}
+        hasMore={true}
+        endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
+      >
+        <CardColumns>
+          {
+            this.currentParks().map(park => {
+              return <ParkCard
+                key={park.id}
+                park={park}
+              />
+            })
+          }
+        </CardColumns>
+      </InfiniteScroll >
+    )
+  }
 }
 
-let mapStateToProps = state => ({ parks: state.park.parks })
+let mapStateToProps = state => ({ parks: state.park.parks, search: state.park.search })
 export default connect(mapStateToProps)(ParksContainer)

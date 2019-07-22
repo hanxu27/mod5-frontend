@@ -6,7 +6,6 @@ import { getParks, getTrips, getProfile } from './services/backend';
 import ContentContainer from './containers/ContentContainer';
 import NavBar from './components/NavigationBar';
 
-
 class App extends Component {
 
   componentDidMount() {
@@ -19,11 +18,9 @@ class App extends Component {
     localStorage.removeItem('token')
     this.props.clearTrips()
     this.props.clearUser()
-
   }
 
   render() {
-    console.log(this.props)
     return (
       <React.Fragment>
         <NavBar handleLogout={this.handleLogout} />

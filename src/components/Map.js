@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
 import ReactMap, { Marker, Popup } from 'react-map-gl';
-import 'mapbox-gl/src/css/mapbox-gl.css'
-import ParkCard from './ParkCard'
-import { getLat, getLong } from '../actions/parkActions'
+
+import 'mapbox-gl/src/css/mapbox-gl.css';
+
+import ParkCard from './ParkCard';
+import { getLat, getLong } from '../actions/parkActions';
+import { displayParks } from '../actions/parkActions';
 
 const Map = (props) => {
   const [viewport, setViewport] = useState({
@@ -50,14 +53,11 @@ const Map = (props) => {
         mapStyle="mapbox://styles/hanxu27/cjxvx303m18ce1cqhd5dg3029"
         onViewportChange={viewport => setViewport(viewport)}
       >
-        {props.parks.map(parkMarker)}
+        {displayParks(props.parks, props.search).map(parkMarker)}
         {selected && (
           <Popup latitude={getLat(selected)} longitude={getLong(selected)} onClose={() => setSelected(null)} style={{ borderRadius: "10px" }}>
             <ParkCard
               park={selected}
-            // showPark={props.showPark}
-            // planNewVisit={props.planNewVisit}
-            // logPastVisit={props.logPastVisit} 
             />
           </Popup>
         )}
@@ -66,6 +66,5 @@ const Map = (props) => {
   )
 }
 
-let mapStateToProps = state => ({ parks: state.park.parks })
-
+let mapStateToProps = state => ({ parks: state.park.parks, search: state.park.search })
 export default connect(mapStateToProps)(Map)

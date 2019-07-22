@@ -10,17 +10,18 @@ import NoMatch from '../components/NoMatch';
 import Map from '../components/Map';
 import Login from '../containers/Login';
 import Profile from '../components/Profile';
+import ParkDetails from '../components/ParkDetails';
 
 function ContentContainer(props) {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Map} />
-        <Route path="/parks" component={ParksContainer} />
-        <Route path="/profile" render={() => (props.user ? <Profile /> : <Redirect to='/login' />)} />
-        <Route path="/login" render={() => (props.user ? <Redirect to='/profile' /> : <Login />)} />
-        {props.user && <Route path="/trips" component={TripsContainer} />}
-        {props.user && <Route path="/pictures" component={PicturesContainer} />}
+        <Route exact path="/" render={() => (props.showParkDetails ? <ParkDetails /> : <Map />)} />
+        <Route path="/parks" render={() => (props.showParkDetails ? <ParkDetails /> : <ParksContainer />)} />
+        <Route path="/profile" render={() => (localStorage.token ? <Profile /> : <Redirect to='/login' />)} />
+        <Route path="/login" render={() => (localStorage.token ? <Redirect to='/profile' /> : <Login />)} />
+        <Route path="/trips" render={() => (localStorage.token ? <TripsContainer /> : <Redirect to='/' />)} />
+        <Route path="/pictures" render={() => (localStorage.token ? <PicturesContainer /> : <Redirect to='/' />)} />
         <Route component={NoMatch} />
       </Switch>
     </Router>
@@ -28,6 +29,6 @@ function ContentContainer(props) {
 }
 
 let mapStateToProps = state => {
-  return (state.user.loggedUser && { user: state.user.loggedUser.id })
+  return (state.user.loggedUser ? { showParkDetails: state.park.showParkDetails, user: state.user.loggedUser.id } : { showParkDetails: state.park.showParkDetails })
 }
 export default connect(mapStateToProps)(ContentContainer)

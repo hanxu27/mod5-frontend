@@ -20,7 +20,7 @@ const NavigationBar = (props) => (
           </Dropdown.Menu>
         </Dropdown>
         <Form inline>
-          <FormControl className="ml-3" type="text" placeholder="Search..." aria-label="Search" onChange={e => props.searchChange(e)} />
+          <FormControl className="ml-3" type="text" placeholder="Search..." aria-label="Search" onChange={e => props.searchChange(e.target.value)} />
         </Form>
       </Nav>
     </Navbar.Collapse>
@@ -39,6 +39,8 @@ const NavigationBar = (props) => (
   </Navbar>
 )
 
-const mapStateToProps = state => (state.user.loggedUser && { user: state.user.loggedUser.id })
-
-export default connect(mapStateToProps)(NavigationBar)
+let mapStateToProps = state => (state.user.loggedUser && { user: state.user.loggedUser.id })
+let mapDispatchToProps = dispatch=> {
+  return {searchChange: value => dispatch({type: "CHANGE_SEARCH", value})}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

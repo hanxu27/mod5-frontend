@@ -1,6 +1,7 @@
 const API = `http://localhost:3000/`
 
 export const getParks = () => fetch(API + 'parks').then(res => res.json())
+export const getPark = (parkId) => fetch(API + 'parks/' + parkId).then(res => res.json())
 
 export function getTrips() {
   if (localStorage.token)
