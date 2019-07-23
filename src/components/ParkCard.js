@@ -11,7 +11,6 @@ const ParkCard = (props) => {
       {img &&
         <Image
           className="p-2 card-img-bottom"
-          onClick={(e) => props.showParkDetails(props.park.id)}
           style={{ maxHeight: '45rem', maxWidth: '45rem', borderRadius: "15px" }}
           src={img.url} alt={img.caption} />
       }
@@ -19,8 +18,11 @@ const ParkCard = (props) => {
         <h4 className="card-title"> <GiDirectionSign /> {props.park.name} </h4>
       </Row>
       <ButtonToolbar className="justify-content-md-center">
+        <Button className="mb-2 mr-2" variant="primary" onClick={(e) => props.showParkDetails(props.park.id)}>
+          Park Details
+          </Button>
         <Button
-          className="mb-3"
+          className="mb-2"
           variant="success"
           onClick={e => console.log(e.target)}>
           Log Visit
