@@ -12,11 +12,15 @@ const NavigationBar = (props) => (
       <Nav className='mr-auto'>
         <Nav.Item><Nav.Link href="/parks">Parks</Nav.Link></Nav.Item>
         <Dropdown className='ml-2' title="National Parks">
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">Filter</Dropdown.Toggle>
+          <Dropdown.Toggle variant="secondary" id="dropdown-basic">Filter: {props.filter} </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item >National Parks</Dropdown.Item>
-            <Dropdown.Item >National Monuments</Dropdown.Item>
-            <Dropdown.Item >National Preserves</Dropdown.Item>
+            <Dropdown.Item name="National Park" onClick={e => props.handleFilter(e.target.name)}>National Parks</Dropdown.Item>
+            <Dropdown.Item name="National Monument" onClick={e => props.handleFilter(e.target.name)}>National Monuments</Dropdown.Item>
+            <Dropdown.Item name="Preserve" onClick={e => props.handleFilter(e.target.name)}>National Preserves</Dropdown.Item>
+            <Dropdown.Item name="National Historic Site" onClick={e => props.handleFilter(e.target.name)}>Historic Sites</Dropdown.Item>
+            <Dropdown.Item name="National Historical Park" onClick={e => props.handleFilter(e.target.name)}>Historic Parks</Dropdown.Item>
+            <Dropdown.Item name="Others" onClick={e => props.handleFilter(e.target.name)}>Others</Dropdown.Item>
+            <Dropdown.Item name="All" onClick={e => props.handleFilter(e.target.name)}>All Parks</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Form inline>
@@ -39,8 +43,8 @@ const NavigationBar = (props) => (
   </Navbar>
 )
 
-let mapStateToProps = state => (state.user.loggedUser && { user: state.user.loggedUser.id })
-let mapDispatchToProps = dispatch=> {
-  return {searchChange: value => dispatch({type: "CHANGE_SEARCH", value})}
+let mapStateToProps = state => (state.user.loggedUser ? { user: state.user.loggedUser.id, filter: state.park.filter } : { filter: state.park.filter })
+let mapDispatchToProps = dispatch => {
+  return { searchChange: value => dispatch({ type: "CHANGE_SEARCH", value }) }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

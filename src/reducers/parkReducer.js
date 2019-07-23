@@ -1,7 +1,8 @@
 let initialState = {
   parks: [],
   showParkDetails: false,
-  search: ''
+  search: '',
+  filter: 'All'
 }
 
 export default (state = initialState, action) => {
@@ -11,6 +12,9 @@ export default (state = initialState, action) => {
     }
     case "SHOW_PARK_DETAILS": {
       return { ...state, showParkDetails: action.parkId }
+    }
+    case "FILTER_PARKS": {
+      return { ...state, filter: action.filter }
     }
     case "BACK_TO_PARKS": {
       return { ...state, showParkDetails: false }

@@ -15,7 +15,6 @@ class ParksContainer extends Component {
   currentParks = () => displayParks(this.props.parks, this.props.search).slice(0, this.state.lastParkIndex)
 
   handleScroll = e => {
-    console.log("object");
     const adder = 10
     const counter = this.state.counter + 1
     let lastParkIndex = this.state.lastParkIndex + adder

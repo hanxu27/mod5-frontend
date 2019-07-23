@@ -1,6 +1,19 @@
 const API = `http://localhost:3000/`
 
-export const getParks = () => fetch(API + 'parks').then(res => res.json())
+export const getParks = (query = '') => {
+  if (query === '')
+    return fetch(API + 'parks').then(res => res.json())
+  else {
+    let search = query.replace(/ /g, "+")
+    return fetch(API + `parks&search=${search}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }).then(res => res.json())
+  }
+}
 export const getPark = (parkId) => fetch(API + 'parks/' + parkId).then(res => res.json())
 
 export function getTrips() {

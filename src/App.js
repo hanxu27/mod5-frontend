@@ -20,10 +20,28 @@ class App extends Component {
     this.props.clearUser()
   }
 
+  handleFilter = (filter) => {
+    if (filter.includes("National")) {
+      getParks(filter).then(this.props.fetchedParks)
+    } else {
+
+
+      let search = ''
+      if (filter === "Preserve")
+        search = filter
+      else if (filter === "Others")
+        search = filter
+      else
+        search = ""
+      getParks(search).then(this.props.fetchedParks)
+    }
+    this.props.filterParks(filter)
+  }
+
   render() {
     return (
       <React.Fragment>
-        <NavBar handleLogout={this.handleLogout} />
+        <NavBar handleLogout={this.handleLogout} handleFilter={this.handleFilter} />
         <ContentContainer />
       </React.Fragment>
     )
@@ -40,7 +58,8 @@ let mapDispatchToProps = dispatch => {
     fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     clearUser: () => dispatch({ type: "CLEAR_USER" }),
-    clearTrips: () => dispatch({ type: "CLEAR_TRIPS" })
+    clearTrips: () => dispatch({ type: "CLEAR_TRIPS" }),
+    filterParks: filter => dispatch({ type: "FILTER_PARKS", filter })
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App)
