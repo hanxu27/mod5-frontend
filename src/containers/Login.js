@@ -6,7 +6,7 @@ import SignInForm from '../components/SignInForm';
 import { getTrips } from '../services/backend';
 
 class Login extends Component {
-  state = {
+  initialState = {
     username: '',
     password: '',
     firstname: '',
@@ -14,6 +14,8 @@ class Login extends Component {
     profile_url: '',
     showSignUpForm: false
   }
+
+  state = this.initialState
 
   toggleSignUpForm = () => this.setState({ showSignUpForm: !this.state.showSignUpForm })
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value })
@@ -23,13 +25,14 @@ class Login extends Component {
     login({ username: this.state.username, password: this.state.password })
       .then(data => {
         if (data.message) {
-          console.log(data.message)
+          this.props.addError(data.message)
         } else {
           localStorage.setItem('token', data.token)
           this.props.handleSignIn(data.user)
           getTrips().then(this.props.fetchedTrips)
+          this.props.clearError()
         }
-        this.setState({ username: '', password: '', firstname: '', lastname: '', profile_url: '', showSignUpForm: false })
+        this.setState(this.initialState)
       })
   }
   handleCreate = (e) => {
@@ -43,7 +46,6 @@ class Login extends Component {
         {this.state.showSignUpForm ?
           <SignUpForm
             toggleSignUpForm={this.toggleSignUpForm}
-
           />
           :
           <SignInForm
@@ -63,6 +65,8 @@ let mapDispatchToProps = dispatch => {
     handleSignIn: user => dispatch({ type: "HANDLE_SIGN_IN", user }),
     fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
     // handleCreate: data => dispatch({ type: "HANDLE_CREATE", data })
+    addError: payload => dispatch({ type: "ADD_ERROR", payload }),
+    clearError: () => dispatch({ type: "CLEAR_ERROR" })
   }
 }
 export default connect(null, mapDispatchToProps)(Login)
