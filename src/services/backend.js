@@ -49,3 +49,15 @@ export function getProfile() {
       }
     })).then(res => res.json())
 }
+
+export const createTrip = (trip) => {
+  return (fetch(API + 'trips', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.token}`
+    },
+    body: JSON.stringify({ trip })
+  })).then(res => res.json())
+}

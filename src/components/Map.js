@@ -14,7 +14,7 @@ const Map = (props) => {
     longitude: -98.935240,
     zoom: 4.5,
     width: '100vw',
-    height: '100vh'
+    height: '94.2vh'
   })
 
   const [selected, setSelected] = useState(null)

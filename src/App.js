@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { getParks, getTrips, getProfile } from './services/backend';
 import ContentContainer from './containers/ContentContainer';
 import NavBar from './components/NavigationBar';
+import ModalContainer from './containers/ModalContainer'
 
 class App extends Component {
 
@@ -41,6 +42,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <ModalContainer />
         <NavBar handleLogout={this.handleLogout} handleFilter={this.handleFilter} />
         <ContentContainer />
       </React.Fragment>

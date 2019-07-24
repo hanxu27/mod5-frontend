@@ -14,18 +14,26 @@ const ParkCard = (props) => {
           style={{ maxHeight: '45rem', maxWidth: '45rem', borderRadius: "15px" }}
           src={img.url} alt={img.caption} />
       }
-      <Row className="justify-content-md-center">
-        <h4 className="card-title"> <GiDirectionSign /> {props.park.name} </h4>
-      </Row>
+      <Card.Title>
+        <Row className="m-2 justify-content-md-center"><GiDirectionSign /> {props.park.name} </Row>
+      </Card.Title>
       <ButtonToolbar className="justify-content-md-center">
-        <Button className="mb-2 mr-2" variant="primary" onClick={(e) => props.showParkDetails(props.park.id)}>
+        <Button className="mb-2 mr-1 ml-1" variant="primary" onClick={(e) => props.showParkDetails(props.park.id)}>
           Park Details
+        </Button>
+        <Button
+          className="mb-2 mr-1 ml-1"
+          variant="danger"
+          name="trip"
+          onClick={e => props.openModal(e.target.name, props.park.id)}>
+          Log Visit
           </Button>
         <Button
-          className="mb-2"
+          className="mb-2 mr-1 ml-1"
           variant="success"
-          onClick={e => console.log(e.target)}>
-          Log Visit
+          name="picture"
+          onClick={e => props.openModal(e.target.name, props.park.id)}>
+          Add Photo
           </Button>
       </ButtonToolbar>
     </Card>
@@ -35,6 +43,7 @@ const ParkCard = (props) => {
 let mapDispatchToProps = dispatch => {
   return {
     showParkDetails: parkId => dispatch({ type: "SHOW_PARK_DETAILS", parkId }),
+    openModal: (showModal, parkId) => dispatch({ type: "OPEN_MODAL", showModal, parkId })
   }
 }
 export default connect(null, mapDispatchToProps)(ParkCard)

@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap'
 import Gallery from 'react-awesome-slider'
 import styles from '../galleryStyles.scss'
 import { FaMap } from 'react-icons/fa'
-import { GiPineTree } from 'react-icons/gi'
 import { connect } from 'react-redux';
 
 import { getPark } from '../services/backend';
@@ -33,15 +32,9 @@ class ParkDetails extends Component {
           <p>{description}</p>
           <p>{weatherInfo}</p>
 
-          <Button
-            type="button"
-            className="btn btn-primary m-1"
-            onClick={this.props.backToParks}>Back</Button>
-
-          <Button
-            type="button"
-            className="btn btn-success m-1 float-right"
-            onClick={null}>Log Visit</Button>
+          <Button variant="primary" className="m-1" onClick={this.props.backToParks}>Back</Button>
+          <Button variant="danger" className="m-1 float-right" onClick={null}>Log Visit</Button>
+          <Button variant="success" className="m-1 float-right">Add Photo</Button>
         </div >
       </div >
     )
