@@ -13,17 +13,23 @@ import Profile from '../components/Profile';
 import ParkDetails from '../components/ParkDetails';
 
 function ContentContainer(props) {
+
+  const showTrips = () => (
+    props.showParkDetails ?
+      <ParkDetails />
+      :
+      <div className="d-flex justify-content-center" >
+        <TripsContainer />
+      </div>
+  )
+
   return (
     <Switch>
       <Route exact path="/" render={() => (props.showParkDetails ? <ParkDetails /> : <Map />)} />
       <Route path="/parks" render={() => (props.showParkDetails ? <ParkDetails /> : <ParksContainer />)} />
       <Route path="/profile" render={() => (localStorage.token ? <Profile /> : <Redirect to='/login' />)} />
       <Route path="/login" render={() => (localStorage.token ? <Redirect to='/profile' /> : <Login />)} />
-      <Route path="/trips" render={() => (localStorage.token ?
-        <div className="d-flex justify-content-center" >
-          <TripsContainer />
-        </div>
-        : <Redirect to='/' />)} />
+      <Route path="/trips" render={() => (localStorage.token ? showTrips() : <Redirect to='/' />)} />
       <Route path="/pictures" render={() => (localStorage.token ? <PicturesContainer /> : <Redirect to='/' />)} />
       <Route component={NoMatch} />
     </Switch>

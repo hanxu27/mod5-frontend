@@ -18,7 +18,7 @@ const ParkCard = (props) => {
         <Row className="m-2 justify-content-md-center text-info"><GiDirectionSign /> {props.park.name} </Row>
       </Card.Title>
       <ButtonToolbar className="justify-content-md-center">
-        <Button className="mb-2 mr-1 ml-1" variant="primary" onClick={(e) => props.showParkDetails(props.park.id)}>
+        <Button className="mb-2 mr-1 ml-1" variant="primary" onClick={e => props.showParkDetails(props.park.id)}>
           Park Details
         </Button>
         {props.user.id &&

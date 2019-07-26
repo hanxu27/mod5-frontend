@@ -15,6 +15,7 @@ class ParkDetails extends Component {
   componentDidMount() {
     getPark(this.props.parkId).then(park => this.setState({ park }))
   }
+
   render() {
     const { url, fullname, states, description, weatherInfo, pictures } = this.state.park
     return (

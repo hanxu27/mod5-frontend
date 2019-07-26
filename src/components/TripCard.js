@@ -4,7 +4,6 @@ import { Card, Button, ButtonToolbar } from 'react-bootstrap'
 import { deleteTrip, getProfile } from '../services/backend'
 
 function TripCard(props) {
-
   const handleDelete = async () => {
     await deleteTrip(props.trip.id)
     getProfile().then(props.fetchedProfile)
@@ -16,12 +15,11 @@ function TripCard(props) {
     props.openModal(e.target.name, props.trip.park, "Edit", content)
   }
 
-
   return (
     <React.Fragment>
       {props.trip.park &&
         <Card className="m-1">
-          <Card.Header as="h4" className="text-light" style={{ background: 'rgb(200, 110, 120)' }} >
+          <Card.Header as="h4" onClick={e => props.showParkDetails(props.trip.park.id)} className="text-light" id="trip-card-title" style={{ background: 'rgb(200, 110, 120)' }} >
             {props.trip.park.fullname}
           </Card.Header>
 
@@ -43,10 +41,9 @@ function TripCard(props) {
     </React.Fragment>
   )
 }
-let mapDispatchToProps = dispatch => {
-  return {
-    fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
-    openModal: (showModal, park, request, content) => dispatch({ type: "OPEN_MODAL", showModal, park, request, content })
-  }
-}
+let mapDispatchToProps = dispatch => ({
+  showParkDetails: parkId => dispatch({ type: "SHOW_PARK_DETAILS", parkId }),
+  fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
+  openModal: (showModal, park, request, content) => dispatch({ type: "OPEN_MODAL", showModal, park, request, content })
+})
 export default connect(null, mapDispatchToProps)(TripCard)

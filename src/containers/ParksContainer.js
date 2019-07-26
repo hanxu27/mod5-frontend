@@ -23,8 +23,6 @@ class ParksContainer extends Component {
 
   render() {
     return (
-
-
       <InfiniteScroll
         dataLength={this.state.lastParkIndex}
         next={this.handleScroll}
