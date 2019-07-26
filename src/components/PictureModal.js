@@ -4,10 +4,14 @@ import { Modal, Button } from 'react-bootstrap'
 import { MdPhotoAlbum } from 'react-icons/md'
 import { GiRadioactive } from "react-icons/gi";
 import { MdInsertLink, MdSpeakerNotes, MdFavorite } from 'react-icons/md';
+import { Redirect } from 'react-router-dom';
 
 import { createPicture } from '../services/backend'
 
 class PictureModal extends Component {
+  initialState = { redirect: null }
+  state = this.initialState
+
   closeModal = e => {
     this.props.closeModal()
   }
@@ -30,64 +34,67 @@ class PictureModal extends Component {
         this.props.addError(data.message)
       } else {
         this.props.closeModal()
-        this.props.showParkDetails(picture.park_id)
+        this.props.backToParks()
+        this.setState({ redirect: <Redirect to='/profile' /> })
       }
     })
-    // console.log(picture);
   }
 
   render() {
     return (
-      <Modal
-        onHide={this.closeModal}
-        show={this.props.showModal === "picture"}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="text-info"><MdPhotoAlbum /> {this.props.park && this.props.park.name}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {this.props.errorMsg.length > 0 && this.props.errorMsg.map(e => <h3 className='text-danger d-flex justify-content-center'><GiRadioactive />{e}</h3>)}
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group" >
-              <div className="row">
-                <div className="mt-2 col-sm-6" >
-                  <label>Title <MdFavorite /></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="title"
-                    defaultValue={this.props.content && this.props.content.title}
-                    placeholder="A Bear's Dinner"
-                    required />
+      <React.Fragment>
+        {this.state.redirect}
+        <Modal
+          onHide={this.closeModal}
+          show={this.props.showModal === "picture"}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter" className="text-info"><MdPhotoAlbum /> {this.props.park && this.props.park.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {this.props.errorMsg.length > 0 && this.props.errorMsg.map(e => <h3 className='text-danger d-flex justify-content-center'><GiRadioactive />{e}</h3>)}
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group" >
+                <div className="row">
+                  <div className="mt-2 col-sm-6" >
+                    <label>Title <MdFavorite /></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="title"
+                      defaultValue={this.props.content && this.props.content.title}
+                      placeholder="A Bear's Dinner"
+                      required />
+                  </div>
+                  <div className="mt-2 col-sm-6">
+                    <label>Caption <MdSpeakerNotes /></label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="caption"
+                      defaultValue={this.props.content && this.props.content.caption}
+                      placeholder="A bear eating my friend ehh"
+                      required />
+                  </div>
                 </div>
-                <div className="mt-2 col-sm-6">
-                  <label>Caption <MdSpeakerNotes /></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="caption"
-                    defaultValue={this.props.content && this.props.content.caption}
-                    placeholder="A bear eating my friend ehh"
-                    required />
-                </div>
+                <label className="mt-2">Link <MdInsertLink /></label>
+                <input
+                  required
+                  type="text"
+                  className="form-control"
+                  name="url"
+                  defaultValue={this.props.content && this.props.content.url}
+                />
               </div>
-              <label className="mt-2">Link <MdInsertLink /></label>
-              <input
-                required
-                type="text"
-                className="form-control"
-                name="url"
-                defaultValue={this.props.content && this.props.content.url}
-              />
-            </div>
-            <Button variant="success" type="submit" className="mr-1" >{this.props.request}</Button>
-            <Button variant="danger" onClick={this.closeModal}>Cancel</Button>
-          </form>
-        </Modal.Body>
-      </Modal >
+              <Button variant="success" type="submit" className="mr-1" >{this.props.request}</Button>
+              <Button variant="danger" onClick={this.closeModal}>Cancel</Button>
+            </form>
+          </Modal.Body>
+        </Modal >
+      </React.Fragment>
     )
   }
 }
@@ -103,10 +110,10 @@ let mapStateToProps = state => ({
 let mapDispatchToProps = dispatch => {
   return {
     closeModal: () => dispatch({ type: "CLOSE_MODAL" }),
-    showParkDetails: parkId => dispatch({ type: "SHOW_PARK_DETAILS", parkId }),
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     addError: payload => dispatch({ type: "ADD_ERROR", payload }),
-    clearError: () => dispatch({ type: "CLEAR_ERROR" })
+    clearError: () => dispatch({ type: "CLEAR_ERROR" }),
+    backToParks: () => dispatch({ type: "BACK_TO_PARKS" })
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PictureModal)

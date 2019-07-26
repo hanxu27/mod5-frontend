@@ -28,7 +28,7 @@ function TripCard(props) {
             <h6 className="text-body">{`${props.trip.season} ${props.trip.year}`}</h6>
             <p className="text-dark"><small>{props.trip.description}</small></p>
             <h6 className="text-body"><small>By: {`${props.trip.user.username}`}</small></h6>
-            <Card.Img variant='bottom' style={{ width: '25%', maxHeight: '20rem', borderRadius: '10px' }} src={props.trip.user.profile_url} />
+            <Card.Img variant='bottom' style={{ width: '25%', maxHeight: '20rem', borderRadius: '30px' }} src={props.trip.user.profile_url} />
           </Card.Body>
           {props.displayMyTrips &&
             <ButtonToolbar className="justify-content-md-center">

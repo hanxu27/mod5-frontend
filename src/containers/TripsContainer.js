@@ -29,19 +29,17 @@ class TripsContainer extends Component {
   render() {
     let displayTrips = this.props.displayMyTrips && this.props.myTrips ? this.props.myTrips : this.props.trips
     return (
-      // <Col >
-        <InfiniteScroll
-          dataLength={this.state.lastItemIndex}
-          next={this.handleScroll}
-          height={window.innerHeight - window.innerHeight * 0.14}
-          hasMore={this.state.hasMore}
-          endMessage={<div className="d-flex justify-content-center"><h4>that's all folks</h4></div>}
-        >
-          {displayTrips.map(trip => (
-            <TripCard trip={trip} key={trip.id} displayMyTrips={this.props.displayMyTrips} />
-          ))}
-        </InfiniteScroll >
-      // </Col>
+      <InfiniteScroll
+        dataLength={this.state.lastItemIndex}
+        next={this.handleScroll}
+        height={window.innerHeight - window.innerHeight * 0.14}
+        hasMore={this.state.hasMore}
+        endMessage={<div className="d-flex justify-content-center"><h4>that's all folks</h4></div>}
+      >
+        {displayTrips.map(trip => (
+          <TripCard trip={trip} key={trip.id} displayMyTrips={this.props.displayMyTrips} />
+        ))}
+      </InfiniteScroll >
     )
   }
 }

@@ -1,47 +1,67 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-bootstrap'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { GiPineTree, GiCongress, GiHolyOak, GiFamilyHouse, GiTreeFace } from 'react-icons/gi'
 import TripsContainer from '../containers/TripsContainer'
+import { getProfile } from '../services/backend';
 
-const Profile = (props) => {
-  const park = props.user.national_park_progress
-  const monument = props.user.national_monument_progress
-  const preserve = props.user.national_preserve_progress
-  const historicSite = props.user.historic_site_progress
-  const historicalPark = props.user.historical_park_progress
-  return (
-    <Row className="m-3 mb-5 d-flex justify-content-center">
-      <Col md={5} >
-        <Card className="m-1">
-          <Card.Title className='m-4'>{Object.keys(props.user).length === 0 ? "Loading..." : `Welcome ${props.user.firstname} ${props.user.lastname}!`}</Card.Title>
-          <Card.Img className='ml-4' style={{ width: '25%' }} variant="right" src={props.user.profile_url} />
-          <Card.Body>
-            {props.user.national_park_progress &&
-              <React.Fragment>
-                <Card.Title>Your Current Progress</Card.Title>
-                <ProgressBar striped animated="true" max={park.total} now={park.visited} label={`${park.visited}/${park.total}`} />
-                <Card.Text><GiPineTree /> National Parks</Card.Text>
-                <ProgressBar variant="warning" striped animated="true" max={monument.total} now={monument.visited} label={`${monument.visited}/${monument.total}`} />
-                <Card.Text><GiCongress /> National Monuments</Card.Text>
-                <ProgressBar variant="success" striped animated="true" max={preserve.total} now={preserve.visited} label={`${preserve.visited}/${preserve.total}`} />
-                <Card.Text><GiHolyOak /> National Preserves</Card.Text>
-                <ProgressBar variant="info" striped animated="true" max={historicSite.total} now={historicSite.visited} label={`${historicSite.visited}/${historicSite.total}`} />
-                <Card.Text><GiFamilyHouse /> National Historic Sites</Card.Text>
-                <ProgressBar variant="secondary" striped animated="true" max={historicalPark.total} now={historicalPark.visited} label={`${historicalPark.visited}/${historicalPark.total}`} />
-                <Card.Text><GiTreeFace /> National Historical Parks</Card.Text>
-              </React.Fragment>
-            }
-          </Card.Body>
-        </Card>
-      </Col>
-      <Col md={7}>
-        <TripsContainer displayMyTrips={true} />
-      </Col>
-    </Row>
-  )
+class Profile extends Component {
+  componentDidMount() {
+    getProfile().then(this.props.fetchedProfile)
+  }
+
+  render() {
+    const park = this.props.user.national_park_progress
+    const monument = this.props.user.national_monument_progress
+    const preserve = this.props.user.national_preserve_progress
+    const historicSite = this.props.user.historic_site_progress
+    const historicalPark = this.props.user.historical_park_progress
+    return (
+      <Row className="m-3 mb-5 d-flex justify-content-center">
+        <Col md={5} >
+          <Card className="m-1">
+            <Row className="ml-1">
+              <Col lg={6}>
+                <Card.Title className='m-3'>{Object.keys(this.props.user).length === 0 ? "Loading..." : `Welcome ${this.props.user.firstname} ${this.props.user.lastname}!`}</Card.Title>
+                <Card.Img className='m-3' style={{ width: '70%', maxHeight: '30rem', borderRadius: '30px' }} variant="right" src={this.props.user.profile_url} />
+              </Col>
+              <Col lg={6}>
+                <Card.Title className='m-3'>Latest Contribution</Card.Title>
+                <Card.Img className='m-3' style={{ width: '70%', maxHeight: '30rem' }} variant="right" src={this.props.user.last_picture} />
+              </Col>
+            </Row>
+            <Card.Body>
+              {this.props.user.national_park_progress &&
+                <React.Fragment>
+                  <Card.Title>Your Current Progress</Card.Title>
+                  <ProgressBar striped animated="true" max={park.total} now={park.visited} label={`${park.visited}/${park.total}`} />
+                  <Card.Text><GiPineTree /> National Parks</Card.Text>
+                  <ProgressBar variant="warning" striped animated="true" max={monument.total} now={monument.visited} label={`${monument.visited}/${monument.total}`} />
+                  <Card.Text><GiCongress /> National Monuments</Card.Text>
+                  <ProgressBar variant="success" striped animated="true" max={preserve.total} now={preserve.visited} label={`${preserve.visited}/${preserve.total}`} />
+                  <Card.Text><GiHolyOak /> National Preserves</Card.Text>
+                  <ProgressBar variant="info" striped animated="true" max={historicSite.total} now={historicSite.visited} label={`${historicSite.visited}/${historicSite.total}`} />
+                  <Card.Text><GiFamilyHouse /> National Historic Sites</Card.Text>
+                  <ProgressBar variant="secondary" striped animated="true" max={historicalPark.total} now={historicalPark.visited} label={`${historicalPark.visited}/${historicalPark.total}`} />
+                  <Card.Text><GiTreeFace /> National Historical Parks</Card.Text>
+                </React.Fragment>
+              }
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={7}>
+          <TripsContainer displayMyTrips={true} />
+        </Col>
+      </Row>
+    )
+  }
 }
 
 let mapStateToProps = state => ({ user: state.user.loggedUser })
-export default connect(mapStateToProps)(Profile)
+let mapDispatchToProps = dispatch => {
+  return {
+    fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

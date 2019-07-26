@@ -37,7 +37,7 @@ class ParkDetails extends Component {
           {this.props.user.id &&
             <React.Fragment>
               <Button variant="danger" className="m-1 float-right" name="trip" onClick={e => this.props.openModal(e.target.name, this.state.park, "Create")}>Log Visit</Button>
-              <Button variant="success" className="m-1 float-right">Add Photo</Button>
+              <Button variant="success" className="m-1 float-right" name="picture" onClick={e => this.props.openModal(e.target.name, this.state.park, "Add")}>Add Photo</Button>
             </React.Fragment>
           }
         </div >

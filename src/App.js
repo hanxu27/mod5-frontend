@@ -12,7 +12,6 @@ class App extends Component {
 
   componentDidMount() {
     getParks().then(this.props.fetchedParks)
-    getProfile() && getProfile().then(this.props.fetchedProfile)
   }
 
   handleLogout = () => {
@@ -58,7 +57,6 @@ let mapStateToProps = state => {
 let mapDispatchToProps = dispatch => {
   return {
     fetchedParks: data => dispatch({ type: "FETCHED_PARKS", data }),
-    fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     clearUser: () => dispatch({ type: "CLEAR_USER" }),
     clearTrips: () => dispatch({ type: "CLEAR_TRIPS" }),
     filterParks: filter => dispatch({ type: "FILTER_PARKS", filter })
