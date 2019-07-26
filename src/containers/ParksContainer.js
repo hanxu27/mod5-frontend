@@ -24,14 +24,15 @@ class ParksContainer extends Component {
   render() {
     return (
 
-      <CardColumns>
-        <InfiniteScroll
-          dataLength={this.state.lastParkIndex}
-          next={this.handleScroll}
-          height={window.innerHeight - window.innerHeight * 0.06}
-          hasMore={true}
-          endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
-        >
+
+      <InfiniteScroll
+        dataLength={this.state.lastParkIndex}
+        next={this.handleScroll}
+        height={window.innerHeight - window.innerHeight * 0.06}
+        hasMore={true}
+        endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
+      >
+        <CardColumns>
           {
             this.currentParks().map(park => {
               return <ParkCard
@@ -40,8 +41,8 @@ class ParksContainer extends Component {
               />
             })
           }
-        </InfiniteScroll>
-      </CardColumns>
+        </CardColumns>
+      </InfiniteScroll>
     )
   }
 }
