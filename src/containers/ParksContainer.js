@@ -9,7 +9,7 @@ import { displayParks } from '../actions/parkActions'
 class ParksContainer extends Component {
   state = {
     lastParkIndex: 10,
-    counter: 0
+    counter: 0,
   }
 
   currentParks = () => displayParks(this.props.parks, this.props.search).slice(0, this.state.lastParkIndex)
@@ -23,14 +23,15 @@ class ParksContainer extends Component {
 
   render() {
     return (
-      <InfiniteScroll
-        dataLength={this.state.lastParkIndex}
-        next={this.handleScroll}
-        height={window.innerHeight - window.innerHeight * 0.06}
-        hasMore={true}
-        endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
-      >
-        <CardColumns>
+
+      <CardColumns>
+        <InfiniteScroll
+          dataLength={this.state.lastParkIndex}
+          next={this.handleScroll}
+          height={window.innerHeight - window.innerHeight * 0.06}
+          hasMore={true}
+          endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
+        >
           {
             this.currentParks().map(park => {
               return <ParkCard
@@ -39,8 +40,8 @@ class ParksContainer extends Component {
               />
             })
           }
-        </CardColumns>
-      </InfiniteScroll >
+        </InfiniteScroll>
+      </CardColumns>
     )
   }
 }

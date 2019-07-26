@@ -18,11 +18,23 @@ class TripModal extends Component {
     let trip = {}
     if (this.props.content) {
       trip = {
-        id: this.props.content.id, park_id: this.props.park.id, user_id: this.props.userId, title: e.target.title.value, description: e.target.description.value, season: e.target.season.value, year: e.target.year.value,
+        id: this.props.content.id,
+        park_id: this.props.park.id,
+        user_id: this.props.userId,
+        title: e.target.title.value,
+        description:
+          e.target.description.value,
+        season: e.target.season.value,
+        year: e.target.year.value,
       }
     } else {
       trip = {
-        park_id: this.props.park.id, user_id: this.props.userId, title: e.target.title.value, description: e.target.description.value, season: e.target.season.value, year: e.target.year.value,
+        park_id: this.props.park.id,
+        user_id: this.props.userId,
+        title: e.target.title.value,
+        description: e.target.description.value,
+        season: e.target.season.value,
+        year: e.target.year.value,
       }
     }
     if (this.props.request === 'Create') {
@@ -38,7 +50,6 @@ class TripModal extends Component {
         this.props.addError(data.message)
       } else {
         getProfile().then(this.props.fetchedProfile)
-        getTrips().then(this.props.fetchedTrips)
         this.setState({ redirect: <Redirect to='/profile' /> })
         this.setState(this.initialState)
         this.props.clearError()
@@ -53,8 +64,7 @@ class TripModal extends Component {
         this.props.addError(data.message)
       } else {
         getProfile().then(this.props.fetchedProfile)
-        getTrips().then(this.props.fetchedTrips)
-        this.setState({ redirect: <Redirect to='/trips' /> })
+        this.setState({ redirect: <Redirect to='/profile' /> })
         this.setState(this.initialState)
         this.props.clearError()
         this.props.closeModal()
@@ -112,7 +122,7 @@ class TripModal extends Component {
                       <option value="Winter">Winter</option>
                     </select>
                   </div>
-                  <div className="col-sm-6">
+                  <div className="mt-2 col-sm-6">
                     <label>Year <FaRegCalendar /></label>
                     <input
                       type="text"

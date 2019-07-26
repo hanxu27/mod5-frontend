@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Card, Button, ButtonToolbar } from 'react-bootstrap'
-import { deleteTrip, getProfile, getTrips } from '../services/backend'
+import { deleteTrip, getProfile } from '../services/backend'
 
 function TripCard(props) {
 
   const handleDelete = async () => {
     await deleteTrip(props.trip.id)
     getProfile().then(props.fetchedProfile)
-    getTrips().then(props.fetchedTrips)
   }
 
   const handleEdit = e => {
@@ -46,7 +45,6 @@ function TripCard(props) {
 }
 let mapDispatchToProps = dispatch => {
   return {
-    fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     openModal: (showModal, park, request, content) => dispatch({ type: "OPEN_MODAL", showModal, park, request, content })
   }

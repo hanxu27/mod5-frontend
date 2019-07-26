@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ParksContainer from '../containers/ParksContainer';
@@ -19,7 +19,11 @@ function ContentContainer(props) {
       <Route path="/parks" render={() => (props.showParkDetails ? <ParkDetails /> : <ParksContainer />)} />
       <Route path="/profile" render={() => (localStorage.token ? <Profile /> : <Redirect to='/login' />)} />
       <Route path="/login" render={() => (localStorage.token ? <Redirect to='/profile' /> : <Login />)} />
-      <Route path="/trips" render={() => (localStorage.token ? <TripsContainer /> : <Redirect to='/' />)} />
+      <Route path="/trips" render={() => (localStorage.token ?
+        <div className="d-flex justify-content-center" >
+          <TripsContainer />
+        </div>
+        : <Redirect to='/' />)} />
       <Route path="/pictures" render={() => (localStorage.token ? <PicturesContainer /> : <Redirect to='/' />)} />
       <Route component={NoMatch} />
     </Switch>

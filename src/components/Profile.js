@@ -12,7 +12,7 @@ const Profile = (props) => {
   const historicSite = props.user.historic_site_progress
   const historicalPark = props.user.historical_park_progress
   return (
-    <Row className="pt-3 pb-5 justify-content-md-center">
+    <div className="m-3 mb-5 d-flex justify-content-center">
       <Col md={5}>
         <Card className="m-1">
           <Card.Title className='m-4'>{Object.keys(props.user).length === 0 ? "Loading..." : `Welcome ${props.user.firstname} ${props.user.lastname}!`}</Card.Title>
@@ -37,7 +37,7 @@ const Profile = (props) => {
         </Card>
       </Col>
       <TripsContainer displayMyTrips={true} />
-    </Row>
+    </div>
   )
 }
 

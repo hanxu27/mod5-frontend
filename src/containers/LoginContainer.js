@@ -23,7 +23,6 @@ class Login extends Component {
   getUserStore = data => {
     localStorage.setItem('token', data.token)
     this.props.handleSignIn(data.user)
-    getTrips().then(this.props.fetchedTrips)
     this.props.clearError()
   }
 
@@ -42,15 +41,19 @@ class Login extends Component {
 
   handleSignUp = (e) => {
     e.preventDefault()
-    signUp({ username: this.state.username, password: this.state.password, firstname: this.state.firstname, lastname: this.state.lastname, profile_url: this.state.profile_url })
+    signUp({
+      username: this.state.username,
+      password: this.state.password,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      profile_url: this.state.profile_url
+    })
       .then(data => {
-
         if (data.message) {
           this.props.addError(data.message)
         } else {
           this.getUserStore(data)
           this.setState(this.initialState)
-
         }
       })
   }
@@ -80,8 +83,6 @@ class Login extends Component {
 let mapDispatchToProps = dispatch => {
   return {
     handleSignIn: user => dispatch({ type: "HANDLE_SIGN_IN", user }),
-    fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
-    // handleSignUp: data => dispatch({ type: "HANDLE_SIGN_UP", data })
     addError: payload => dispatch({ type: "ADD_ERROR", payload }),
     clearError: () => dispatch({ type: "CLEAR_ERROR" })
   }
