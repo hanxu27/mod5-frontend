@@ -5,6 +5,7 @@
   "dependencies": {
     "esm": "^3.2.25",
     "lodash": "^4.17.15",
+    "lodash.template": "^4.5.0",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-awesome-slider": "^1.0.1",
