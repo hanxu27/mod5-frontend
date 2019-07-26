@@ -16,7 +16,7 @@ export const getParks = (query = '') => {
 }
 export const getPark = (parkId) => fetch(API + 'parks/' + parkId).then(res => res.json())
 
-export function getTrips() {
+export const getTrips = () => {
   if (localStorage.token)
     return (fetch(API + 'trips', {
       method: 'GET',
@@ -38,7 +38,7 @@ export const login = (user) => {
   )
 }
 
-export function getProfile() {
+export const getProfile = () => {
   if (localStorage.token)
     return (fetch(API + 'getUser', {
       method: 'GET',
@@ -48,6 +48,17 @@ export function getProfile() {
         Authorization: `Bearer ${localStorage.token}`
       }
     })).then(res => res.json())
+}
+
+export const signUp = (user) => {
+  return (fetch(API + 'users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    },
+    body: JSON.stringify({ user })
+  })).then(res => res.json())
 }
 
 export const createTrip = (trip) => {
@@ -61,3 +72,26 @@ export const createTrip = (trip) => {
     body: JSON.stringify({ trip })
   })).then(res => res.json())
 }
+
+export const editTrip = (trip) => {
+  return (fetch(API + 'trips/' + trip.id, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.token}`
+    },
+    body: JSON.stringify({ trip })
+  })).then(res => res.json())
+}
+
+export const deleteTrip = (tripId) => (
+  fetch(API + `trips/${tripId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.token}`
+    }
+  }).then(res => res.json())
+)

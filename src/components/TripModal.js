@@ -1,36 +1,65 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { FaCarSide, FaRegCalendar, FaFeatherAlt, FaKiwiBird, FaSun, FaLeaf, FaSnowflake } from 'react-icons/fa'
-import { GiFireFlower } from "react-icons/gi";
+import { GiFireFlower, GiRadioactive } from "react-icons/gi";
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getTrips, getProfile, createTrip } from '../services/backend';
+import { getTrips, getProfile, createTrip, editTrip } from '../services/backend';
 
 class TripModal extends Component {
   initialState = {
     redirect: null,
-    title: "",
-    description: "",
-    season: "",
-    year: ""
   }
 
   state = this.initialState
 
-  handleFormChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
+  handleSubmit = e => {
+    e.preventDefault()
+    let trip = {}
+    if (this.props.content) {
+      trip = {
+        id: this.props.content.id, park_id: this.props.park.id, user_id: this.props.userId, title: e.target.title.value, description: e.target.description.value, season: e.target.season.value, year: e.target.year.value,
+      }
+    } else {
+      trip = {
+        park_id: this.props.park.id, user_id: this.props.userId, title: e.target.title.value, description: e.target.description.value, season: e.target.season.value, year: e.target.year.value,
+      }
+    }
+    if (this.props.request === 'Create') {
+      this.createTrip(trip)
+    } else if (this.props.request === 'Edit') {
+      this.editTrip(trip)
+    }
   }
 
-  createTrip = async (e) => {
-    e.preventDefault()
-    const trip = { park_id: this.props.parkId, user_id: this.props.userId, title: this.state.title, description: this.state.description, season: this.state.season, year: this.state.year }
-    console.log(trip);
-    await createTrip(trip)
-    this.setState({ redirect: <Redirect to='/trips' /> })
-    getProfile().then(this.props.fetchedProfile)
-    getTrips().then(this.props.fetchedTrips)
-    this.setState(this.initialState)
-    this.props.closeModal()
+  editTrip = (trip) => {
+    editTrip(trip).then(data => {
+      if (data.message) {
+        this.props.addError(data.message)
+      } else {
+        getProfile().then(this.props.fetchedProfile)
+        getTrips().then(this.props.fetchedTrips)
+        this.setState({ redirect: <Redirect to='/profile' /> })
+        this.setState(this.initialState)
+        this.props.clearError()
+        this.props.closeModal()
+      }
+    })
+  }
+
+  createTrip = (trip) => {
+    createTrip(trip).then(data => {
+      if (data.message) {
+        this.props.addError(data.message)
+      } else {
+        getProfile().then(this.props.fetchedProfile)
+        getTrips().then(this.props.fetchedTrips)
+        this.setState({ redirect: <Redirect to='/trips' /> })
+        this.setState(this.initialState)
+        this.props.clearError()
+        this.props.closeModal()
+      }
+    })
   }
 
   closeModal = e => {
@@ -50,32 +79,32 @@ class TripModal extends Component {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter">Log Trip <FaCarSide /></Modal.Title>
+            <Modal.Title id="contained-modal-title-vcenter" className="text-info">Log Trip <FaCarSide /> {this.props.park && this.props.park.name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={this.createTrip}>
+            {this.props.errorMsg.length > 0 && this.props.errorMsg.map(e => <h3 className='text-danger d-flex justify-content-center'><GiRadioactive />{e}</h3>)}
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group" >
                 <label>Trip Title <FaKiwiBird /></label>
                 <input
                   required
                   type="text"
-                  id="title"
                   className="form-control"
                   name="title"
-                  value={this.state.title}
-                  onChange={this.handleFormChange}
+                  defaultValue={this.props.content && this.props.content.title}
                   placeholder="My Awesome Trip" />
-                <label>Trip Review <FaFeatherAlt /></label>
+                <label className="mt-1">Trip Review <FaFeatherAlt /></label>
                 <textarea
                   name="description"
-                  id="description"
                   className="form-control"
-                  value={this.state.description}
-                  onChange={this.handleFormChange} />
+                  defaultValue={this.props.content && this.props.content.description}
+                />
                 <div className="row">
-                  <div className="col-sm-6" >
+                  <div className="mt-2 col-sm-6" >
                     <label>Season <GiFireFlower /><FaSun /><FaLeaf /><FaSnowflake /></label>
-                    <select name="season" className="form-control" onChange={this.handleFormChange} required>
+                    <select defaultValue={this.props.content && this.props.content.season} name="season" className="form-control"
+
+                      required>
                       <option value=""></option>
                       <option value="Spring">Spring</option>
                       <option value="Summer">Summer</option>
@@ -87,17 +116,15 @@ class TripModal extends Component {
                     <label>Year <FaRegCalendar /></label>
                     <input
                       type="text"
-                      id="year"
                       className="form-control"
                       name="year"
-                      value={this.state.year}
-                      onChange={this.handleFormChange}
+                      defaultValue={this.props.content && this.props.content.year}
                       placeholder="2018"
                       required />
                   </div>
                 </div>
               </div>
-              <Button variant="success" type="submit" className="mr-1" >Create</Button>
+              <Button variant="success" type="submit" className="mr-1" >{this.props.request}</Button>
               <Button variant="danger" onClick={this.closeModal}>Cancel</Button>
             </form>
           </Modal.Body>
@@ -107,12 +134,14 @@ class TripModal extends Component {
   }
 }
 
-let mapStateToProps = state => ({ showModal: state.modal.showModal, parkId: state.modal.parkId, userId: state.user.loggedUser.id })
+let mapStateToProps = state => ({ content: state.modal.content, request: state.modal.request, showModal: state.modal.showModal, park: state.modal.park, userId: state.user.loggedUser.id, errorMsg: state.error.message })
 let mapDispatchToProps = dispatch => {
   return {
     closeModal: () => dispatch({ type: "CLOSE_MODAL" }),
     fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
+    addError: payload => dispatch({ type: "ADD_ERROR", payload }),
+    clearError: () => dispatch({ type: "CLEAR_ERROR" })
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(TripModal)

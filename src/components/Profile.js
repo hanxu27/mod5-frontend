@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Card } from 'react-bootstrap'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { GiPineTree, GiCongress, GiHolyOak, GiFamilyHouse, GiTreeFace } from 'react-icons/gi'
+import TripsContainer from '../containers/TripsContainer'
 
 const Profile = (props) => {
   const park = props.user.national_park_progress
@@ -13,7 +14,7 @@ const Profile = (props) => {
   return (
     <Row className="pt-3 pb-5 justify-content-md-center">
       <Col md={5}>
-        <Card>
+        <Card className="m-1">
           <Card.Title className='m-4'>{Object.keys(props.user).length === 0 ? "Loading..." : `Welcome ${props.user.firstname} ${props.user.lastname}!`}</Card.Title>
           <Card.Img className='ml-4' style={{ width: '25%' }} variant="right" src={props.user.profile_url} />
           <Card.Body>
@@ -35,6 +36,7 @@ const Profile = (props) => {
           </Card.Body>
         </Card>
       </Col>
+      <TripsContainer displayMyTrips={true} />
     </Row>
   )
 }

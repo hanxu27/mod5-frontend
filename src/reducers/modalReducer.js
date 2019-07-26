@@ -1,15 +1,17 @@
 let initialState = {
   showModal: false,
-  parkId: 0
+  park: {},
+  request: null,
+  content: null
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case "OPEN_MODAL": {
-      return { ...state, showModal: action.showModal, parkId: action.parkId }
+      return { ...state, showModal: action.showModal, park: action.park, request: action.request, content: action.content }
     }
     case "CLOSE_MODAL": {
-      return { ...state, showModal: false, parkId: 0 }
+      return initialState
     }
     default: {
       return state

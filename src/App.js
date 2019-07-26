@@ -43,9 +43,9 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <ModalContainer />
+        {localStorage.token && <ModalContainer />}
         <NavBar handleLogout={this.handleLogout} handleFilter={this.handleFilter} />
-        {this.props.errorMsg !== '' && <ErrorMsg />}
+        {this.props.errorMsg.length > 0 && <ErrorMsg />}
         <ContentContainer />
       </React.Fragment>
     )

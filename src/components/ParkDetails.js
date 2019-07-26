@@ -33,18 +33,23 @@ class ParkDetails extends Component {
           <p>{weatherInfo}</p>
 
           <Button variant="primary" className="m-1" onClick={this.props.backToParks}>Back</Button>
-          <Button variant="danger" className="m-1 float-right" onClick={null}>Log Visit</Button>
-          <Button variant="success" className="m-1 float-right">Add Photo</Button>
+          {this.props.user.id &&
+            <React.Fragment>
+              <Button variant="danger" className="m-1 float-right" name="trip" onClick={e => this.props.openModal(e.target.name, this.state.park, "Create")}>Log Visit</Button>
+              <Button variant="success" className="m-1 float-right">Add Photo</Button>
+            </React.Fragment>
+          }
         </div >
       </div >
     )
   }
 }
 
-let mapStateToProps = state => ({ parkId: state.park.showParkDetails })
+let mapStateToProps = state => ({ parkId: state.park.showParkDetails, user: state.user.loggedUser })
 let mapDispatchToProps = dispatch => {
   return {
     backToParks: () => dispatch({ type: "BACK_TO_PARKS" }),
+    openModal: (showModal, park, request) => dispatch({ type: "OPEN_MODAL", showModal, park, request })
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ParkDetails)

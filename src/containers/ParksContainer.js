@@ -26,7 +26,7 @@ class ParksContainer extends Component {
       <InfiniteScroll
         dataLength={this.state.lastParkIndex}
         next={this.handleScroll}
-        height={window.innerHeight - window.innerHeight * 0.058}
+        height={window.innerHeight - window.innerHeight * 0.06}
         hasMore={true}
         endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
       >

@@ -10,8 +10,8 @@ const NavigationBar = (props) => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav" >
       <Nav className='mr-auto'>
-        <Nav.Item><Nav.Link href="/parks">Parks</Nav.Link></Nav.Item>
-        <Dropdown className='ml-2' title="National Parks">
+        <Nav.Item className="mt-1"><Nav.Link href="/parks">Parks</Nav.Link></Nav.Item>
+        <Dropdown className='ml-2 mt-1' title="National Parks">
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">Filter: {props.filter} </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item name="National Park" onClick={e => props.handleFilter(e.target.name)}>National Parks</Dropdown.Item>
@@ -24,7 +24,7 @@ const NavigationBar = (props) => (
           </Dropdown.Menu>
         </Dropdown>
         <Form inline>
-          <FormControl className="ml-3" type="text" placeholder="Search..." aria-label="Search" onChange={e => props.searchChange(e.target.value)} />
+          <FormControl className="ml-2 mt-1" type="text" placeholder="Search..." aria-label="Search" onChange={e => props.searchChange(e.target.value)} />
         </Form>
       </Nav>
     </Navbar.Collapse>

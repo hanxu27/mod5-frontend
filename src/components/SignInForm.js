@@ -12,8 +12,8 @@ export default function SignInForm(props) {
 
   return (
     <Row className="mt-3 justify-content-md-center">
-      <Col xs={3}>
-        <Form validated={validated} onSubmit={handleSignIn} >
+      <Col sm={10} md={6} lg={3} xl={2}>
+        <Form className='m-3' validated={validated} onSubmit={handleSignIn} >
           <Form.Group>
             <Form.Label>Username:</Form.Label>
             <Form.Control required name="username" placeholder="Enter username" value={props.username} onChange={props.handleOnChange} />

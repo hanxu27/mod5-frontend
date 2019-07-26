@@ -7,7 +7,7 @@ const ErrorMsg = (props) => {
     <Row className='mt-3 justify-content-center'>
       <Alert variant="danger" onClose={() => props.clearError()} dismissible>
         <Alert.Heading>You got mail!</Alert.Heading>
-        <p>{props.errorMsg}</p>
+        {props.errorMsg.map(e => <h6>{e}</h6>)}
       </Alert>
     </Row>
   )

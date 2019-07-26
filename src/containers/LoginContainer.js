@@ -4,6 +4,7 @@ import { login } from '../services/backend'
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 import { getTrips } from '../services/backend';
+import { signUp } from '../services/backend'
 
 class Login extends Component {
   initialState = {
@@ -12,13 +13,19 @@ class Login extends Component {
     firstname: '',
     lastname: '',
     profile_url: '',
-    showSignUpForm: false
+    showSignUpForm: false,
   }
 
   state = this.initialState
 
   toggleSignUpForm = () => this.setState({ showSignUpForm: !this.state.showSignUpForm })
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value })
+  getUserStore = data => {
+    localStorage.setItem('token', data.token)
+    this.props.handleSignIn(data.user)
+    getTrips().then(this.props.fetchedTrips)
+    this.props.clearError()
+  }
 
   handleSignIn = (e) => {
     e.preventDefault()
@@ -27,17 +34,25 @@ class Login extends Component {
         if (data.message) {
           this.props.addError(data.message)
         } else {
-          localStorage.setItem('token', data.token)
-          this.props.handleSignIn(data.user)
-          getTrips().then(this.props.fetchedTrips)
-          this.props.clearError()
+          this.getUserStore(data)
         }
         this.setState(this.initialState)
       })
   }
-  handleCreate = (e) => {
+
+  handleSignUp = (e) => {
     e.preventDefault()
-    console.log(this.state.username, this.state.password)
+    signUp({ username: this.state.username, password: this.state.password, firstname: this.state.firstname, lastname: this.state.lastname, profile_url: this.state.profile_url })
+      .then(data => {
+
+        if (data.message) {
+          this.props.addError(data.message)
+        } else {
+          this.getUserStore(data)
+          this.setState(this.initialState)
+
+        }
+      })
   }
 
   render() {
@@ -46,6 +61,8 @@ class Login extends Component {
         {this.state.showSignUpForm ?
           <SignUpForm
             toggleSignUpForm={this.toggleSignUpForm}
+            handleOnChange={this.handleOnChange}
+            handleSignUp={this.handleSignUp}
           />
           :
           <SignInForm
@@ -64,7 +81,7 @@ let mapDispatchToProps = dispatch => {
   return {
     handleSignIn: user => dispatch({ type: "HANDLE_SIGN_IN", user }),
     fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
-    // handleCreate: data => dispatch({ type: "HANDLE_CREATE", data })
+    // handleSignUp: data => dispatch({ type: "HANDLE_SIGN_UP", data })
     addError: payload => dispatch({ type: "ADD_ERROR", payload }),
     clearError: () => dispatch({ type: "CLEAR_ERROR" })
   }

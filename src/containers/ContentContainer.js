@@ -8,7 +8,7 @@ import PicturesContainer from '../containers/PicturesContainer';
 
 import NoMatch from '../components/NoMatch';
 import Map from '../components/Map';
-import Login from '../containers/Login';
+import Login from '../containers/LoginContainer';
 import Profile from '../components/Profile';
 import ParkDetails from '../components/ParkDetails';
 
