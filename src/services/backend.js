@@ -95,3 +95,15 @@ export const deleteTrip = (tripId) => (
     }
   }).then(res => res.json())
 )
+
+export const createPicture = (picture) => {
+  return (fetch(API + 'pictures', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.token}`
+    },
+    body: JSON.stringify({ picture })
+  })).then(res => res.json())
+}

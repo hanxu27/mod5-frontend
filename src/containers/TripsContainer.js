@@ -29,7 +29,7 @@ class TripsContainer extends Component {
   render() {
     let displayTrips = this.props.displayMyTrips && this.props.myTrips ? this.props.myTrips : this.props.trips
     return (
-      <Col md='7'>
+      // <Col >
         <InfiniteScroll
           dataLength={this.state.lastItemIndex}
           next={this.handleScroll}
@@ -41,7 +41,7 @@ class TripsContainer extends Component {
             <TripCard trip={trip} key={trip.id} displayMyTrips={this.props.displayMyTrips} />
           ))}
         </InfiniteScroll >
-      </Col>
+      // </Col>
     )
   }
 }

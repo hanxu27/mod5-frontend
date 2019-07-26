@@ -34,7 +34,7 @@ const ParkCard = (props) => {
               className="mb-2 mr-1 ml-1"
               variant="success"
               name="picture"
-              onClick={e => props.openModal(e.target.name, props.park)}>
+              onClick={e => props.openModal(e.target.name, props.park, "Add")}>
               Add Photo
             </Button>
           </React.Fragment>

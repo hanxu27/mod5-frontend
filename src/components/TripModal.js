@@ -4,13 +4,10 @@ import { FaCarSide, FaRegCalendar, FaFeatherAlt, FaKiwiBird, FaSun, FaLeaf, FaSn
 import { GiFireFlower, GiRadioactive } from "react-icons/gi";
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getTrips, getProfile, createTrip, editTrip } from '../services/backend';
+import { getProfile, createTrip, editTrip } from '../services/backend';
 
 class TripModal extends Component {
-  initialState = {
-    redirect: null,
-  }
-
+  initialState = { redirect: null }
   state = this.initialState
 
   handleSubmit = e => {
@@ -22,8 +19,7 @@ class TripModal extends Component {
         park_id: this.props.park.id,
         user_id: this.props.userId,
         title: e.target.title.value,
-        description:
-          e.target.description.value,
+        description: e.target.description.value,
         season: e.target.season.value,
         year: e.target.year.value,
       }
@@ -52,7 +48,6 @@ class TripModal extends Component {
         getProfile().then(this.props.fetchedProfile)
         this.setState({ redirect: <Redirect to='/profile' /> })
         this.setState(this.initialState)
-        this.props.clearError()
         this.props.closeModal()
       }
     })
@@ -66,13 +61,13 @@ class TripModal extends Component {
         getProfile().then(this.props.fetchedProfile)
         this.setState({ redirect: <Redirect to='/profile' /> })
         this.setState(this.initialState)
-        this.props.clearError()
         this.props.closeModal()
       }
     })
   }
 
   closeModal = e => {
+    this.props.clearError()
     this.setState(this.initialState)
     this.props.closeModal()
   }
@@ -89,7 +84,7 @@ class TripModal extends Component {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title-vcenter" className="text-info">Log Trip <FaCarSide /> {this.props.park && this.props.park.name}</Modal.Title>
+            <Modal.Title id="contained-modal-title-vcenter" className="text-info"><FaCarSide /> {this.props.park && this.props.park.name}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {this.props.errorMsg.length > 0 && this.props.errorMsg.map(e => <h3 className='text-danger d-flex justify-content-center'><GiRadioactive />{e}</h3>)}
@@ -103,7 +98,7 @@ class TripModal extends Component {
                   name="title"
                   defaultValue={this.props.content && this.props.content.title}
                   placeholder="My Awesome Trip" />
-                <label className="mt-1">Trip Review <FaFeatherAlt /></label>
+                <label className="mt-2">Trip Review <FaFeatherAlt /></label>
                 <textarea
                   name="description"
                   className="form-control"
@@ -144,11 +139,17 @@ class TripModal extends Component {
   }
 }
 
-let mapStateToProps = state => ({ content: state.modal.content, request: state.modal.request, showModal: state.modal.showModal, park: state.modal.park, userId: state.user.loggedUser.id, errorMsg: state.error.message })
+let mapStateToProps = state => ({
+  content: state.modal.content,
+  request: state.modal.request,
+  showModal: state.modal.showModal,
+  park: state.modal.park,
+  userId: state.user.loggedUser.id,
+  errorMsg: state.error.message
+})
 let mapDispatchToProps = dispatch => {
   return {
     closeModal: () => dispatch({ type: "CLOSE_MODAL" }),
-    fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     addError: payload => dispatch({ type: "ADD_ERROR", payload }),
     clearError: () => dispatch({ type: "CLEAR_ERROR" })

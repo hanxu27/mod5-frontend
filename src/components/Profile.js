@@ -12,8 +12,8 @@ const Profile = (props) => {
   const historicSite = props.user.historic_site_progress
   const historicalPark = props.user.historical_park_progress
   return (
-    <div className="m-3 mb-5 d-flex justify-content-center">
-      <Col md={5}>
+    <Row className="m-3 mb-5 d-flex justify-content-center">
+      <Col md={5} >
         <Card className="m-1">
           <Card.Title className='m-4'>{Object.keys(props.user).length === 0 ? "Loading..." : `Welcome ${props.user.firstname} ${props.user.lastname}!`}</Card.Title>
           <Card.Img className='ml-4' style={{ width: '25%' }} variant="right" src={props.user.profile_url} />
@@ -36,8 +36,10 @@ const Profile = (props) => {
           </Card.Body>
         </Card>
       </Col>
-      <TripsContainer displayMyTrips={true} />
-    </div>
+      <Col md={7}>
+        <TripsContainer displayMyTrips={true} />
+      </Col>
+    </Row>
   )
 }
 

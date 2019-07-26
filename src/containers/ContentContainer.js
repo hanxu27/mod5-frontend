@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Col } from 'react-bootstrap'
 
 import ParksContainer from '../containers/ParksContainer';
 import TripsContainer from '../containers/TripsContainer';
@@ -19,7 +20,9 @@ function ContentContainer(props) {
       <ParkDetails />
       :
       <div className="d-flex justify-content-center" >
-        <TripsContainer />
+        <Col lg={7}>
+          <TripsContainer />
+        </Col>
       </div>
   )
 
