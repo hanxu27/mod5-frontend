@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Row, Col, Card } from 'react-bootstrap'
+import { Row, Col, Card, Button } from 'react-bootstrap'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { GiPineTree, GiCongress, GiHolyOak, GiFamilyHouse, GiTreeFace } from 'react-icons/gi'
 import TripsContainer from '../containers/TripsContainer'
-import { getProfile } from '../services/backend';
+import { getProfile, deletePicture } from '../services/backend';
 
 class Profile extends Component {
-  componentDidMount() {
+  handleDelete = async () => {
+    await deletePicture(this.props.user.last_picture.id)
     getProfile().then(this.props.fetchedProfile)
   }
 
@@ -17,6 +18,7 @@ class Profile extends Component {
     const preserve = this.props.user.national_preserve_progress
     const historicSite = this.props.user.historic_site_progress
     const historicalPark = this.props.user.historical_park_progress
+
     return (
       <Row className="m-3 mb-5 d-flex justify-content-center">
         <Col md={5} >
@@ -27,8 +29,8 @@ class Profile extends Component {
                 <Card.Img className='m-3' style={{ width: '70%', maxHeight: '30rem', borderRadius: '30px' }} variant="right" src={this.props.user.profile_url} />
               </Col>
               <Col lg={6}>
-                <Card.Title className='m-3'>Latest Contribution</Card.Title>
-                <Card.Img className='m-3' style={{ width: '70%', maxHeight: '30rem' }} variant="right" src={this.props.user.last_picture} />
+                <Card.Title className='m-3'>Latest Contribution <Button variant="danger" size='sm' onClick={this.handleDelete}>Delete</Button></Card.Title>
+                <Card.Img className='m-3' style={{ width: '70%', maxHeight: '30rem' }} variant="right" src={this.props.user.last_picture && this.props.user.last_picture.url} />
               </Col>
             </Row>
             <Card.Body>

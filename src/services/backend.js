@@ -107,3 +107,14 @@ export const createPicture = (picture) => {
     body: JSON.stringify({ picture })
   })).then(res => res.json())
 }
+
+export const deletePicture = (pictureId) => (
+  fetch(API + `pictures/${pictureId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.token}`
+    }
+  }).then(res => res.json())
+)
