@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button, Tabs, Tab } from "react-bootstrap";
+import { Row, Col, Button, Tabs, Tab } from "react-bootstrap";
 import Gallery from "react-awesome-slider";
 import styles from "../galleryStyles.scss";
 import { FaMap } from "react-icons/fa";
