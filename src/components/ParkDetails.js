@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useCallback } from "react";
 import { Button, Tabs, Tab } from "react-bootstrap";
 import Gallery from "react-awesome-slider";
 import styles from "../galleryStyles.scss";
 import { FaMap } from "react-icons/fa";
 import { connect } from "react-redux";
-import FlickrGallery from "react-photo-gallery";
-import Carousel, { Modal, ModalGateway } from "react-images";
 
 import { getPark, flickrPictures } from "../services/backend";
+import FlickrGallery from "./FlickrGallery";
 
 class ParkDetails extends Component {
   state = {
@@ -23,7 +22,7 @@ class ParkDetails extends Component {
   }
 
   getFlickrPictures = () =>
-    flickrPictures(this.state.park.name, this.state.flickrPage).then(
+    flickrPictures(this.state.park.fullname, this.state.flickrPage).then(
       flickrPictures => this.setState({ flickrPictures })
     );
 
@@ -101,7 +100,7 @@ class ParkDetails extends Component {
             )}
           </Tab>
           <Tab eventKey="morePictures" title="More Pictures">
-            <FlickrGallery photos={this.state.flickrPictures} />
+            <FlickrGallery pictures={this.state.flickrPictures} />
           </Tab>
         </Tabs>
       </div>
