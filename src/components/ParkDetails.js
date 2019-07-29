@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from "react";
+import React, { Component } from "react";
 import { Button, Tabs, Tab } from "react-bootstrap";
 import Gallery from "react-awesome-slider";
 import styles from "../galleryStyles.scss";
@@ -11,8 +11,7 @@ import FlickrGallery from "./FlickrGallery";
 class ParkDetails extends Component {
   state = {
     park: {},
-    flickrPictures: [],
-    flickrPage: 1
+    flickrPictures: []
   };
 
   componentDidMount() {
@@ -21,10 +20,13 @@ class ParkDetails extends Component {
       .then(() => this.getFlickrPictures());
   }
 
-  getFlickrPictures = () =>
-    flickrPictures(this.state.park.fullname, this.state.flickrPage).then(
-      flickrPictures => this.setState({ flickrPictures })
-    );
+  getFlickrPictures = (page = 1) =>
+    flickrPictures(this.state.park.fullname, page).then(flickrPictures => {
+      let totalPictures = this.state.flickrPictures.concat(flickrPictures);
+      this.setState({
+        flickrPictures: totalPictures
+      });
+    });
 
   render() {
     const {
@@ -100,7 +102,10 @@ class ParkDetails extends Component {
             )}
           </Tab>
           <Tab eventKey="morePictures" title="More Pictures">
-            <FlickrGallery pictures={this.state.flickrPictures} />
+            <FlickrGallery
+              pictures={this.state.flickrPictures}
+              getFlickrPictures={this.getFlickrPictures}
+            />
           </Tab>
         </Tabs>
       </div>
