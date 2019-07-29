@@ -20,8 +20,8 @@ class Profile extends Component {
     const historicalPark = this.props.user.historical_park_progress
 
     return (
-      <Row className="m-3 mb-5 d-flex justify-content-center">
-        <Col md={5} >
+      <Row className="m-2 d-flex justify-content-center">
+        <Col sm={5} >
           <Card className="m-1">
             <Row className="ml-1">
               <Col lg={6}>
