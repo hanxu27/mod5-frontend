@@ -7,8 +7,7 @@ import {
   GiCongress,
   GiHolyOak,
   GiFamilyHouse,
-  GiTreeFace,
-  GiFlyingFlag
+  GiTreeFace
 } from "react-icons/gi";
 import TripsContainer from "../containers/TripsContainer";
 import { getProfile, deletePicture } from "../services/backend";
@@ -47,8 +46,9 @@ class Profile extends Component {
               <Col lg={6}>
                 <Card.Title className="m-2">
                   {this.props.user.last_picture &&
-                    `${this.props.user.last_picture.title} ⛳
-                      ${this.props.user.last_picture.park.name}`}{" "}
+                    `${this.props.user.last_picture.title} ⛳ ${
+                      this.props.user.last_picture.park.name
+                    }`}
                 </Card.Title>
                 <Card.Img
                   className="m-2"

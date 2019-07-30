@@ -20,7 +20,6 @@ const ParkAlerts = props => {
             <a
               href={props.alert.url || null}
               target="_blank"
-              HTMLButtonElement
               rel="noopener noreferrer"
               className="ml-4 mb-2"
             >

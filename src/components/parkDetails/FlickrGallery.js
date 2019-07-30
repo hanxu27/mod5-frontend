@@ -8,7 +8,6 @@ const FlickrGallery = props => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [lastItemIndex, setLastItemIndex] = useState(15);
-  const [hasMore, setHasMore] = useState(true);
 
   const openLightbox = useCallback((e, { photo, index }) => {
     setCurrentImage(index);
@@ -35,7 +34,7 @@ const FlickrGallery = props => {
         dataLength={lastItemIndex}
         next={handleScroll}
         height={window.innerHeight - window.innerHeight * 0.16}
-        hasMore={hasMore}
+        hasMore={true}
         endMessage={
           <div className="d-flex justify-content-center">
             <h4>that's all folks</h4>
