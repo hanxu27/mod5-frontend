@@ -22,7 +22,6 @@ const ParkEvents = props => {
             <a
               href={props.event.infourl || null}
               target="_blank"
-              HTMLButtonElement
               rel="noopener noreferrer"
               className="ml-4 mb-2"
             >

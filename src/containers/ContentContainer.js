@@ -24,33 +24,22 @@ function ContentContainer(props) {
       </div>
     );
 
-  const showProfile = () =>
-    props.showParkDetails ? <ParkDetails /> : <Profile />;
+  const showProfile = () => (props.showParkDetails ? <ParkDetails /> : <Profile />);
 
   return (
     <Switch>
-      <Route
-        exact
-        path="/"
-        render={() => (props.showParkDetails ? <ParkDetails /> : <Map />)}
-      />
+      <Route exact path="/" render={() => (props.showParkDetails ? <ParkDetails /> : <Map />)} />
       <Route
         path="/parks"
-        render={() =>
-          props.showParkDetails ? <ParkDetails /> : <ParksContainer />
-        }
+        render={() => (props.showParkDetails ? <ParkDetails /> : <ParksContainer />)}
       />
       <Route
         path="/profile"
-        render={() =>
-          localStorage.token ? showProfile() : <Redirect to="/login" />
-        }
+        render={() => (localStorage.token ? showProfile() : <Redirect to="/login" />)}
       />
       <Route
         path="/login"
-        render={() =>
-          localStorage.token ? <Redirect to="/profile" /> : <Login />
-        }
+        render={() => (localStorage.token ? <Redirect to="/profile" /> : <Login />)}
       />
       <Route
         path="/trips"

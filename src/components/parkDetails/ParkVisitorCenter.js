@@ -20,7 +20,6 @@ const ParkVisitorCenters = props => {
             <a
               href={props.visitorCenter.url || null}
               target="_blank"
-              HTMLButtonElement
               rel="noopener noreferrer"
               className="ml-4 mb-2"
             >

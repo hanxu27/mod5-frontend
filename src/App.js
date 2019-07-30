@@ -1,43 +1,38 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
-import { getParks, getProfile } from './services/backend';
-import ContentContainer from './containers/ContentContainer';
-import NavBar from './components/NavigationBar';
-import ModalContainer from './containers/ModalContainer'
-import ErrorMsg from './components/ErrorMsg';
+import { getParks, getProfile } from "./services/backend";
+import ContentContainer from "./containers/ContentContainer";
+import NavBar from "./components/NavigationBar";
+import ModalContainer from "./containers/ModalContainer";
+import ErrorMsg from "./components/ErrorMsg";
 
 class App extends Component {
-
   componentDidMount() {
-    getParks().then(this.props.fetchedParks)
-    getProfile().then(this.props.fetchedProfile)
+    getParks().then(this.props.fetchedParks);
+    getProfile().then(this.props.fetchedProfile);
   }
 
   handleLogout = () => {
-    localStorage.removeItem('token')
-    this.props.clearTrips()
-    this.props.clearUser()
-  }
+    localStorage.removeItem("token");
+    this.props.clearTrips();
+    this.props.clearUser();
+  };
 
-  handleFilter = (filter) => {
+  handleFilter = filter => {
     if (filter.includes("National")) {
-      getParks(filter).then(this.props.fetchedParks)
+      getParks(filter).then(this.props.fetchedParks);
     } else {
-
-
-      let search = ''
-      if (filter === "Preserve")
-        search = filter
-      else if (filter === "Others")
-        search = filter
-      else
-        search = ""
-      getParks(search).then(this.props.fetchedParks)
+      let search = "";
+      if (filter === "Preserve") search = filter;
+      else if (filter === "Others") search = filter;
+      else search = "";
+      getParks(search).then(this.props.fetchedParks);
     }
-    this.props.filterParks(filter)
-  }
+    this.props.filterParks(filter);
+    this.props.backToParks();
+  };
 
   render() {
     return (
@@ -47,13 +42,15 @@ class App extends Component {
         {this.props.errorMsg.length > 0 && <ErrorMsg />}
         <ContentContainer />
       </React.Fragment>
-    )
+    );
   }
 }
 
 let mapStateToProps = state => {
-  return (state.user.loggedUser ? { user: state.user.loggedUser.id, errorMsg: state.error.message } : { errorMsg: state.error.message })
-}
+  return state.user.loggedUser
+    ? { user: state.user.loggedUser.id, errorMsg: state.error.message }
+    : { errorMsg: state.error.message };
+};
 
 let mapDispatchToProps = dispatch => {
   return {
@@ -61,7 +58,11 @@ let mapDispatchToProps = dispatch => {
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     clearUser: () => dispatch({ type: "CLEAR_USER" }),
     clearTrips: () => dispatch({ type: "CLEAR_TRIPS" }),
-    filterParks: filter => dispatch({ type: "FILTER_PARKS", filter })
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+    filterParks: filter => dispatch({ type: "FILTER_PARKS", filter }),
+    backToParks: () => dispatch({ type: "BACK_TO_PARKS" })
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

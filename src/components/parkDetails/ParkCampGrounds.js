@@ -20,7 +20,6 @@ const ParkCampGrounds = props => {
             <a
               href={props.campGround.url || null}
               target="_blank"
-              HTMLButtonElement
               rel="noopener noreferrer"
               className="ml-4 mb-2"
             >
