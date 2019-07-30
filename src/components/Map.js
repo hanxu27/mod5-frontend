@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux';
-import ReactMap, { Marker, Popup } from 'react-map-gl';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import ReactMap, { Marker, Popup } from "react-map-gl";
 
-import 'mapbox-gl/src/css/mapbox-gl.css';
+import "mapbox-gl/src/css/mapbox-gl.css";
 
-import ParkCard from './ParkCard';
-import { getLat, getLong } from '../actions/parkActions';
-import { displayParks } from '../actions/parkActions';
+import ParkCard from "./ParkCard";
+import { getLat, getLong } from "../actions/parkActions";
+import { displayParks } from "../actions/parkActions";
 
-const Map = (props) => {
+const Map = props => {
   const [viewport, setViewport] = useState({
     latitude: 38.560954,
-    longitude: -98.935240,
+    longitude: -98.93524,
     zoom: 4.5,
-    width: '100vw',
-    height: '94.2vh'
-  })
+    width: "100vw",
+    height: "93.9vh"
+  });
 
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    const listener = e => e.key === "Escape" && setSelected(null)
-    window.addEventListener("keydown", listener)
-    return () => window.removeEventListener("keydown", listener)
-  }, [])
+    const listener = e => e.key === "Escape" && setSelected(null);
+    window.addEventListener("keydown", listener);
+    return () => window.removeEventListener("keydown", listener);
+  }, []);
 
   const parkMarker = park => {
     return (
@@ -32,17 +32,21 @@ const Map = (props) => {
         latitude={getLat(park) + getLat(park) * 0.0088}
         longitude={getLong(park) + getLong(park) * 0.002}
       >
-        <button className="marker-btn" onClick={e => {
-          e.preventDefault()
-          setSelected(park)
-        }} >
+        <button
+          className="marker-btn"
+          onClick={e => {
+            e.preventDefault();
+            setSelected(park);
+          }}
+        >
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/1/1d/US-NationalParkService-Logo.svg"
-            alt="Park Logo" />
+            alt="Park Logo"
+          />
         </button>
       </Marker>
-    )
-  }
+    );
+  };
 
   return (
     <div>
@@ -56,16 +60,22 @@ const Map = (props) => {
       >
         {displayParks(props.parks, props.search).map(parkMarker)}
         {selected && (
-          <Popup latitude={getLat(selected)} longitude={getLong(selected)} onClose={() => setSelected(null)} style={{ borderRadius: "10px" }}>
-            <ParkCard
-              park={selected}
-            />
+          <Popup
+            latitude={getLat(selected)}
+            longitude={getLong(selected)}
+            onClose={() => setSelected(null)}
+            style={{ borderRadius: "10px" }}
+          >
+            <ParkCard park={selected} />
           </Popup>
         )}
       </ReactMap>
-    </div >
-  )
-}
+    </div>
+  );
+};
 
-let mapStateToProps = state => ({ parks: state.park.parks, search: state.park.search })
-export default connect(mapStateToProps)(Map)
+let mapStateToProps = state => ({
+  parks: state.park.parks,
+  search: state.park.search
+});
+export default connect(mapStateToProps)(Map);

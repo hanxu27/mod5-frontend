@@ -16,6 +16,11 @@ export const getParks = (query = "") => {
 export const getPark = parkId =>
   fetch(API + "parks/" + parkId).then(res => res.json());
 
+export const searchNPS = (category, parkCode) =>
+  fetch(API + `parks&nps_search=${category}&parkCode=${parkCode}`).then(res =>
+    res.json()
+  );
+
 export const getTrips = (page = 1) => {
   if (localStorage.token)
     return fetch(API + `trips&page=${page}`, {
