@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Row, Col, Button, Tabs, Tab, Accordion } from "react-bootstrap";
 import Gallery from "react-awesome-slider";
 import styles from "../galleryStyles.scss";
@@ -143,9 +144,20 @@ class ParkDetails extends Component {
                 )}
               </Tabs>
               <hr />
-              <Button variant="primary" className="mb-2 shadow" onClick={this.props.backToParks}>
-                Back
-              </Button>
+              <Link to="/parks">
+                <Button
+                  variant="warning"
+                  className="mb-2 mr-1 shadow"
+                  onClick={this.props.backToParks}
+                >
+                  To Parks
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button variant="primary" className="mb-2 shadow" onClick={this.props.backToParks}>
+                  To Map
+                </Button>
+              </Link>
               {this.props.user.id && (
                 <React.Fragment>
                   <Button
