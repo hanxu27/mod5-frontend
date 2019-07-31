@@ -13,6 +13,7 @@ class PictureModal extends Component {
   state = this.initialState;
 
   closeModal = e => {
+    this.props.clearError()
     this.props.closeModal();
   };
 
