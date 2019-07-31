@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {
-  GiPineTree,
-  GiCongress,
-  GiHolyOak,
-  GiFamilyHouse,
-  GiTreeFace
-} from "react-icons/gi";
+import { GiPineTree, GiCongress, GiHolyOak, GiFamilyHouse, GiTreeFace } from "react-icons/gi";
 import TripsContainer from "../containers/TripsContainer";
 import { getProfile, deletePicture } from "../services/backend";
 
@@ -37,7 +31,7 @@ class Profile extends Component {
                     : `Welcome ${this.props.user.firstname} ${this.props.user.lastname}!`}
                 </Card.Title>
                 <Card.Img
-                  className="m-2"
+                  className="m-2 shadow"
                   style={{ width: "90%", borderRadius: "30px" }}
                   variant="right"
                   src={this.props.user.profile_url}
@@ -51,18 +45,13 @@ class Profile extends Component {
                     }`}
                 </Card.Title>
                 <Card.Img
-                  className="m-2"
+                  className="m-2 shadow-lg"
                   style={{ width: "90%" }}
                   variant="right"
                   src={this.props.user.last_picture && this.props.user.last_picture.url}
                 />
                 <Card.Text>
-                  <Button
-                    className="m-2"
-                    variant="danger"
-                    size="sm"
-                    onClick={this.handleDelete}
-                  >
+                  <Button className="m-2" variant="danger" size="sm" onClick={this.handleDelete}>
                     Delete
                   </Button>
                 </Card.Text>
@@ -73,6 +62,7 @@ class Profile extends Component {
                 <React.Fragment>
                   <Card.Title>Your Current Progress</Card.Title>
                   <ProgressBar
+                    className="shadow-sm"
                     striped
                     animated="true"
                     max={park.total}
@@ -83,6 +73,7 @@ class Profile extends Component {
                     <GiPineTree /> National Parks
                   </Card.Text>
                   <ProgressBar
+                    className="shadow-sm"
                     variant="warning"
                     striped
                     animated="true"
@@ -94,6 +85,7 @@ class Profile extends Component {
                     <GiCongress /> National Monuments
                   </Card.Text>
                   <ProgressBar
+                    className="shadow-sm"
                     variant="success"
                     striped
                     animated="true"
@@ -105,6 +97,7 @@ class Profile extends Component {
                     <GiHolyOak /> National Preserves
                   </Card.Text>
                   <ProgressBar
+                    className="shadow-sm"
                     variant="info"
                     striped
                     animated="true"
@@ -116,6 +109,7 @@ class Profile extends Component {
                     <GiFamilyHouse /> National Historic Sites
                   </Card.Text>
                   <ProgressBar
+                    className="shadow-sm"
                     variant="secondary"
                     striped
                     animated="true"

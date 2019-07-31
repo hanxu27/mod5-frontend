@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav, Navbar, Form, FormControl } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import { GiDandelionFlower } from "react-icons/gi";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 const NavigationBar = props => {
+  const [redirect, setRedirect] = useState(false);
+
   const searchChange = e => {
+    if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
+      setRedirect(true);
+    }
     props.searchChange(e.target.value);
+    props.backToParks();
+  };
+  const handleFilter = e => {
+    if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
+      setRedirect(true);
+    }
+    props.handleFilter(e.target.name);
     props.backToParks();
   };
   return (
     <Navbar expand="sm" variant="dark" bg="dark">
+      {redirect && <Redirect to="/parks" />}
       <Navbar.Brand href="/">
         <GiDandelionFlower /> Parks Browser
       </Navbar.Brand>
@@ -21,59 +34,45 @@ const NavigationBar = props => {
           <Nav.Item className="mt-1">
             <Nav.Link href="/parks">Parks</Nav.Link>
           </Nav.Item>
-          {(props.location.pathname === "/parks" || props.location.pathname === "/") && (
-            <React.Fragment>
-              <Dropdown className="ml-2 mt-1" title="National Parks">
-                <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                  Filter: {props.filter}{" "}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item
-                    name="National Park"
-                    onClick={e => props.handleFilter(e.target.name)}
-                  >
-                    National Parks
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    name="National Monument"
-                    onClick={e => props.handleFilter(e.target.name)}
-                  >
-                    National Monuments
-                  </Dropdown.Item>
-                  <Dropdown.Item name="Preserve" onClick={e => props.handleFilter(e.target.name)}>
-                    National Preserves
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    name="National Historic Site"
-                    onClick={e => props.handleFilter(e.target.name)}
-                  >
-                    Historic Sites
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    name="National Historical Park"
-                    onClick={e => props.handleFilter(e.target.name)}
-                  >
-                    Historic Parks
-                  </Dropdown.Item>
-                  <Dropdown.Item name="Others" onClick={e => props.handleFilter(e.target.name)}>
-                    Others
-                  </Dropdown.Item>
-                  <Dropdown.Item name="All" onClick={e => props.handleFilter(e.target.name)}>
-                    All Parks
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              <Form inline>
-                <FormControl
-                  className="ml-2 mt-1"
-                  type="text"
-                  placeholder="Search..."
-                  aria-label="Search"
-                  onChange={searchChange}
-                />
-              </Form>
-            </React.Fragment>
-          )}
+          <React.Fragment>
+            <Dropdown className="ml-2 mt-1" title="National Parks">
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Filter: {props.filter}{" "}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item name="National Park" onClick={e => handleFilter(e)}>
+                  National Parks
+                </Dropdown.Item>
+                <Dropdown.Item name="National Monument" onClick={e => handleFilter(e)}>
+                  National Monuments
+                </Dropdown.Item>
+                <Dropdown.Item name="Preserve" onClick={e => handleFilter(e)}>
+                  National Preserves
+                </Dropdown.Item>
+                <Dropdown.Item name="National Historic Site" onClick={e => handleFilter(e)}>
+                  Historic Sites
+                </Dropdown.Item>
+                <Dropdown.Item name="National Historical Park" onClick={e => handleFilter(e)}>
+                  Historic Parks
+                </Dropdown.Item>
+                <Dropdown.Item name="Others" onClick={e => handleFilter(e)}>
+                  Others
+                </Dropdown.Item>
+                <Dropdown.Item name="All" onClick={e => handleFilter(e)}>
+                  All Parks
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Form inline>
+              <FormControl
+                className="ml-2 mt-1"
+                type="text"
+                placeholder="Search..."
+                aria-label="Search"
+                onChange={searchChange}
+              />
+            </Form>
+          </React.Fragment>
         </Nav>
       </Navbar.Collapse>
       <Nav className="ml-auto">

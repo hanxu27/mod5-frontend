@@ -31,7 +31,6 @@ class App extends Component {
       getParks(search).then(this.props.fetchedParks);
     }
     this.props.filterParks(filter);
-    this.props.backToParks();
   };
 
   render() {

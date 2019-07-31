@@ -31,12 +31,8 @@ class ParkDetails extends Component {
       .then(park => this.setState({ park }))
       .then(() => {
         this.getFlickrPictures();
-        searchNPS("events", this.state.park.parkCode).then(events =>
-          this.setState({ events })
-        );
-        searchNPS("alerts", this.state.park.parkCode).then(alerts =>
-          this.setState({ alerts })
-        );
+        searchNPS("events", this.state.park.parkCode).then(events => this.setState({ events }));
+        searchNPS("alerts", this.state.park.parkCode).then(alerts => this.setState({ alerts }));
         searchNPS("newsreleases", this.state.park.parkCode).then(newsreleases =>
           this.setState({ news: newsreleases })
         );
@@ -82,7 +78,7 @@ class ParkDetails extends Component {
                 </Gallery>
               )}
               <Tabs className="mt-1" defaultActiveKey="description">
-                <Tab className="m-1" eventKey="description" title="Description">
+                <Tab className="p-2 shadow" eventKey="description" title="Description">
                   <div className="mt-1 text-dark">
                     <h6>
                       <FaMap /> {states}
@@ -92,7 +88,7 @@ class ParkDetails extends Component {
                   </div>
                 </Tab>
                 {this.state.alerts && this.state.alerts.length > 0 && (
-                  <Tab className="m-1" eventKey="alerts" title="Alerts">
+                  <Tab className="p-2 shadow" eventKey="alerts" title="Alerts">
                     <Accordion>
                       {this.state.alerts.map(a => {
                         return <ParkAlerts alert={a} key={a.id} />;
@@ -101,7 +97,7 @@ class ParkDetails extends Component {
                   </Tab>
                 )}
                 {this.state.events && this.state.events.length > 0 && (
-                  <Tab className="m-1" eventKey="events" title="Events">
+                  <Tab className="p-2 shadow" eventKey="events" title="Events">
                     <Accordion>
                       {this.state.events.map(e => {
                         return <ParkEvents event={e} key={e.id} />;
@@ -110,7 +106,7 @@ class ParkDetails extends Component {
                   </Tab>
                 )}
                 {this.state.news && this.state.news.length > 0 && (
-                  <Tab className="m-1" eventKey="news" title="News">
+                  <Tab className="p-2 shadow" eventKey="news" title="News">
                     <Accordion>
                       {this.state.news.map(n => {
                         return <ParkNews news={n} key={n.id} />;
@@ -119,7 +115,7 @@ class ParkDetails extends Component {
                   </Tab>
                 )}
                 {this.state.visitorcenters && this.state.visitorcenters.length > 0 && (
-                  <Tab className="m-1" eventKey="visitorcenters" title="Visitor Center">
+                  <Tab className="p-2 shadow" eventKey="visitorcenters" title="Visitor Center">
                     <Accordion>
                       {this.state.visitorcenters.map(v => {
                         return <ParkVisitorCenter visitorCenter={v} key={v.id} />;
@@ -128,7 +124,7 @@ class ParkDetails extends Component {
                   </Tab>
                 )}
                 {this.state.campgrounds && this.state.campgrounds.length > 0 && (
-                  <Tab className="m-1" eventKey="campgrounds" title="Campground">
+                  <Tab className="p-2 shadow" eventKey="campgrounds" title="Campground">
                     <Accordion>
                       {this.state.campgrounds.map(c => {
                         return <ParkCampGrounds campGround={c} key={c.id} />;
@@ -137,7 +133,7 @@ class ParkDetails extends Component {
                   </Tab>
                 )}
                 {this.state.entranceFees && this.state.entranceFees.length > 0 && (
-                  <Tab className="m-1" eventKey="entranceFees" title="Entrance Fee">
+                  <Tab className="p-2 shadow" eventKey="entranceFees" title="Entrance Fee">
                     <Accordion>
                       {this.state.entranceFees.map(f => {
                         return <ParkEntranceFees fee={f} key={f.title} />;
@@ -147,7 +143,7 @@ class ParkDetails extends Component {
                 )}
               </Tabs>
               <hr />
-              <Button variant="primary" className="mb-2" onClick={this.props.backToParks}>
+              <Button variant="primary" className="mb-2 shadow" onClick={this.props.backToParks}>
                 Back
               </Button>
               {this.props.user.id && (
@@ -156,19 +152,15 @@ class ParkDetails extends Component {
                     variant="danger"
                     className="mb-2 float-right"
                     name="trip"
-                    onClick={e =>
-                      this.props.openModal(e.target.name, this.state.park, "Create")
-                    }
+                    onClick={e => this.props.openModal(e.target.name, this.state.park, "Create")}
                   >
                     Log Visit
                   </Button>
                   <Button
                     variant="success"
-                    className="mb-2 mr-1 float-right"
+                    className="mb-2 mr-1 float-right shadow"
                     name="picture"
-                    onClick={e =>
-                      this.props.openModal(e.target.name, this.state.park, "Add")
-                    }
+                    onClick={e => this.props.openModal(e.target.name, this.state.park, "Add")}
                   >
                     Add Photo
                   </Button>

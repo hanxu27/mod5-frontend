@@ -18,7 +18,7 @@ function TripCard(props) {
   return (
     <React.Fragment>
       {props.trip.park && (
-        <Card className="m-1">
+        <Card className="m-1 shadow">
           <Card.Header
             as="h4"
             onClick={e => props.showParkDetails(props.trip.park.id)}
@@ -46,12 +46,7 @@ function TripCard(props) {
           </Card.Body>
           {props.displayMyTrips && (
             <ButtonToolbar className="justify-content-md-center">
-              <Button
-                className="mb-2 mr-1 ml-1"
-                variant="primary"
-                name="trip"
-                onClick={handleEdit}
-              >
+              <Button className="mb-2 mr-1 ml-1" variant="primary" name="trip" onClick={handleEdit}>
                 Edit
               </Button>
               <Button className="mb-2 mr-1 ml-1" variant="danger" onClick={handleDelete}>
