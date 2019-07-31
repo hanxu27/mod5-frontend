@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { GiDirectionSign } from "react-icons/gi";
 import { Card, Button, Image, ButtonToolbar, Row } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -7,11 +8,11 @@ const ParkCard = props => {
   const img = props.park.pictures;
 
   return (
-    <Card className="m-1 shadow" style={{ borderRadius: "15px" }}>
+    <Card className="m-1 shadow rounded">
       {img && (
         <Image
-          className="p-3 card-img-bottom shadow"
-          style={{ maxHeight: "45rem", maxWidth: "45rem", borderRadius: "30px" }}
+          className="card-img-bottom border shadow rounded-top"
+          style={{ maxHeight: "45rem", maxWidth: "45rem" }}
           src={img.url}
           alt={img.caption}
         />
@@ -22,13 +23,11 @@ const ParkCard = props => {
         </Row>
       </Card.Title>
       <ButtonToolbar className="justify-content-md-center">
-        <Button
-          className="mb-2 mr-1 ml-1"
-          variant="primary"
-          onClick={e => props.showParkDetails(props.park.id)}
-        >
-          Park Details
-        </Button>
+        <Link to={"/parks/" + props.park.id}>
+          <Button className="mb-2 mr-1 ml-1" variant="primary">
+            Park Details
+          </Button>
+        </Link>
         {props.user.id && (
           <React.Fragment>
             <Button
@@ -56,7 +55,6 @@ const ParkCard = props => {
 
 let mapStateToProps = state => ({ user: state.user.loggedUser });
 let mapDispatchToProps = dispatch => ({
-  showParkDetails: parkId => dispatch({ type: "SHOW_PARK_DETAILS", parkId }),
   openModal: (showModal, park, request) =>
     dispatch({ type: "OPEN_MODAL", showModal, park, request })
 });

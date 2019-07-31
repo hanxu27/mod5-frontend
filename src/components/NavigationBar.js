@@ -10,19 +10,15 @@ const NavigationBar = props => {
 
   const searchChange = e => {
     if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
-      props.backToParks();
       setRedirect(!redirect);
     }
     props.searchChange(e.target.value);
-    props.backToParks();
   };
   const handleFilter = e => {
     if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
-      props.backToParks();
       setRedirect(true);
     }
     props.handleFilter(e.target.name);
-    props.backToParks();
   };
   return (
     <Navbar expand="sm" variant="dark" bg="dark">
@@ -111,8 +107,7 @@ let mapStateToProps = state =>
     ? { user: state.user.loggedUser.id, filter: state.park.filter }
     : { filter: state.park.filter };
 let mapDispatchToProps = dispatch => ({
-  searchChange: value => dispatch({ type: "CHANGE_SEARCH", value }),
-  backToParks: () => dispatch({ type: "BACK_TO_PARKS" })
+  searchChange: value => dispatch({ type: "CHANGE_SEARCH", value })
 });
 export default withRouter(
   connect(

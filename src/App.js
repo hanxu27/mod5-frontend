@@ -57,8 +57,7 @@ let mapDispatchToProps = dispatch => {
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
     clearUser: () => dispatch({ type: "CLEAR_USER" }),
     clearTrips: () => dispatch({ type: "CLEAR_TRIPS" }),
-    filterParks: filter => dispatch({ type: "FILTER_PARKS", filter }),
-    backToParks: () => dispatch({ type: "BACK_TO_PARKS" })
+    filterParks: filter => dispatch({ type: "FILTER_PARKS", filter })
   };
 };
 export default connect(

@@ -32,9 +32,9 @@ class ParksContainer extends Component {
         endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
       >
         <CardColumns>
-          {this.currentParks().map(park => {
-            return <ParkCard key={park.id} park={park} />;
-          })}
+          {this.currentParks().map(park => (
+            <ParkCard key={park.id} park={park} />
+          ))}
         </CardColumns>
       </InfiniteScroll>
     );

@@ -5,6 +5,7 @@ import Gallery from "react-awesome-slider";
 import styles from "../galleryStyles.scss";
 import { FaMap } from "react-icons/fa";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { getPark, flickrPictures, searchNPS } from "../services/backend";
 import FlickrGallery from "./parkDetails/FlickrGallery";
@@ -28,7 +29,8 @@ class ParkDetails extends Component {
   };
 
   componentDidMount() {
-    getPark(this.props.parkId)
+    let parkId = this.props.location.pathname.split("/").slice(-1)[0];
+    getPark(parkId)
       .then(park => this.setState({ park }))
       .then(() => {
         this.getFlickrPictures();
@@ -145,16 +147,12 @@ class ParkDetails extends Component {
               </Tabs>
               <hr />
               <Link to="/parks">
-                <Button
-                  variant="warning"
-                  className="mb-2 mr-1 shadow"
-                  onClick={this.props.backToParks}
-                >
+                <Button variant="warning" className="mb-2 mr-1 shadow">
                   To Parks
                 </Button>
               </Link>
               <Link to="/">
-                <Button variant="primary" className="mb-2 shadow" onClick={this.props.backToParks}>
+                <Button variant="primary" className="mb-2 shadow">
                   To Map
                 </Button>
               </Link>
@@ -193,17 +191,17 @@ class ParkDetails extends Component {
 }
 
 let mapStateToProps = state => ({
-  parkId: state.park.showParkDetails,
   user: state.user.loggedUser
 });
 let mapDispatchToProps = dispatch => {
   return {
-    backToParks: () => dispatch({ type: "BACK_TO_PARKS" }),
     openModal: (showModal, park, request) =>
       dispatch({ type: "OPEN_MODAL", showModal, park, request })
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ParkDetails);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ParkDetails)
+);

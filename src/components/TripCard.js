@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Card, Button, ButtonToolbar } from "react-bootstrap";
 import { deleteTrip, getProfile } from "../services/backend";
 
@@ -19,16 +20,16 @@ function TripCard(props) {
     <React.Fragment>
       {props.trip.park && (
         <Card className="m-1 shadow">
-          <Card.Header
-            as="h4"
-            onClick={e => props.showParkDetails(props.trip.park.id)}
-            className="text-light"
-            id="trip-card-title"
-            style={{ background: "rgb(200, 110, 120)" }}
-          >
-            {props.trip.park.fullname}
-          </Card.Header>
-
+          <Link to={"/parks/" + props.trip.park.id}>
+            <Card.Header
+              as="Button"
+              className="text-light"
+              id="trip-card-title"
+              style={{ background: "rgb(200, 110, 120)" }}
+            >
+              {props.trip.park.fullname}
+            </Card.Header>
+          </Link>
           <Card.Body>
             <h6 className="text-body">{`${props.trip.title}`}</h6>
             <h6 className="text-body">{`${props.trip.season} ${props.trip.year}`}</h6>
@@ -60,7 +61,6 @@ function TripCard(props) {
   );
 }
 let mapDispatchToProps = dispatch => ({
-  showParkDetails: parkId => dispatch({ type: "SHOW_PARK_DETAILS", parkId }),
   fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
   openModal: (showModal, park, request, content) =>
     dispatch({ type: "OPEN_MODAL", showModal, park, request, content })
