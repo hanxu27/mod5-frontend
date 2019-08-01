@@ -11,12 +11,30 @@ code {
 }
 
 .marker-btn {
+  position: relative;
+  left: -5px;
+  top: -7px;
   background: none;
   border: none;
   cursor: pointer;
 }
 
 .marker-btn img {
+  position: relative;
+  left: -5px;
+  top: -8px;
   width: 10px;
   height: 13px;
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+    column-count: 1;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 2;
+  }
 }

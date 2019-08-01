@@ -15,9 +15,9 @@ $control-button-hover-opacity: 0.75;
 $control-button-background: transparent;
 $loader-bar-color: #851515;
 $loader-bar-height: 6px;
-$control-bullet-color: #757171;
-$control-bullet-active-color: #a7a7a7;
-$content-background-color: #e2e2e2;
+$control-bullet-color: #5f5a5a;
+$control-bullet-active-color: #858282;
+$content-background-color: #e7e7e7;
 
 %fill-parent {
   display: block;
@@ -297,8 +297,7 @@ $content-background-color: #e2e2e2;
       content: " ";
       position: absolute;
       right: calc(
-        50% - (#{$cos45} * (var(--organic-arrow-height) + var(--organic-arrow-thickness))) /
-          2
+        50% - (#{$cos45} * (var(--organic-arrow-height) + var(--organic-arrow-thickness))) / 2
       );
       height: 100%;
       border-radius: var(--organic-arrow-border-radius);
@@ -335,8 +334,7 @@ $content-background-color: #e2e2e2;
     &:after {
       right: auto;
       left: calc(
-        50% - (#{$cos45} * (var(--organic-arrow-height) + var(--organic-arrow-thickness))) /
-          2
+        50% - (#{$cos45} * (var(--organic-arrow-height) + var(--organic-arrow-thickness))) / 2
       );
     }
     &:before {

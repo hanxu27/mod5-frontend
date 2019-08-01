@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Row, Col } from "react-bootstrap";
+
 import { login } from "../services/backend";
 import SignUpForm from "../components/SignUpForm";
 import SignInForm from "../components/SignInForm";
 import { signUp } from "../services/backend";
+import FancyPhoto from "../components/splash_login";
 
 class Login extends Component {
   initialState = {
@@ -17,7 +20,11 @@ class Login extends Component {
 
   state = this.initialState;
 
-  toggleSignUpForm = () => this.setState({ showSignUpForm: !this.state.showSignUpForm });
+  toggleSignUpForm = () => {
+    this.props.clearError();
+    this.setState(this.initialState);
+    this.setState({ showSignUpForm: !this.state.showSignUpForm });
+  };
   handleOnChange = e => this.setState({ [e.target.name]: e.target.value });
   getUserStore = data => {
     localStorage.setItem("token", data.token);
@@ -57,23 +64,27 @@ class Login extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        {this.state.showSignUpForm ? (
-          <SignUpForm
-            toggleSignUpForm={this.toggleSignUpForm}
-            handleOnChange={this.handleOnChange}
-            handleSignUp={this.handleSignUp}
-          />
-        ) : (
-          <SignInForm
-            username={this.state.username}
-            password={this.state.password}
-            toggleSignUpForm={this.toggleSignUpForm}
-            handleSignIn={this.handleSignIn}
-            handleOnChange={this.handleOnChange}
-          />
-        )}
-      </React.Fragment>
+      <FancyPhoto>
+        <Row className="mt-3 mb-5 justify-content-center">
+          <Col sm={10} md={6} lg={4}>
+            {this.state.showSignUpForm ? (
+              <SignUpForm
+                toggleSignUpForm={this.toggleSignUpForm}
+                handleOnChange={this.handleOnChange}
+                handleSignUp={this.handleSignUp}
+              />
+            ) : (
+              <SignInForm
+                username={this.state.username}
+                password={this.state.password}
+                toggleSignUpForm={this.toggleSignUpForm}
+                handleSignIn={this.handleSignIn}
+                handleOnChange={this.handleOnChange}
+              />
+            )}
+          </Col>
+        </Row>
+      </FancyPhoto>
     );
   }
 }

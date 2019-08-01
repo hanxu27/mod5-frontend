@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { CardColumns } from "react-bootstrap";
+import { CardColumns, Container, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -24,19 +24,25 @@ class ParksContainer extends Component {
 
   render() {
     return (
-      <InfiniteScroll
-        dataLength={this.state.lastParkIndex}
-        next={this.handleScroll}
-        height={window.innerHeight - window.innerHeight * 0.06}
-        hasMore={true}
-        endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
-      >
-        <CardColumns>
-          {this.currentParks().map(park => (
-            <ParkCard key={park.id} park={park} />
-          ))}
-        </CardColumns>
-      </InfiniteScroll>
+      <Container fluid={true}>
+        <Row className="justify-content-center">
+          <Col md={8}>
+            <InfiniteScroll
+              dataLength={this.state.lastParkIndex}
+              next={this.handleScroll}
+              height={window.innerHeight - window.innerHeight * 0.06}
+              hasMore={true}
+              endMessage={<h4 className="justify-content-center">that's all folks...</h4>}
+            >
+              <CardColumns className="m-2">
+                {this.currentParks().map(park => (
+                  <ParkCard key={park.id} park={park} />
+                ))}
+              </CardColumns>
+            </InfiniteScroll>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

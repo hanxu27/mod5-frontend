@@ -13,13 +13,10 @@ export const getParks = (query = "") => {
     }).then(res => res.json());
   }
 };
-export const getPark = parkId =>
-  fetch(API + "parks/" + parkId).then(res => res.json());
+export const getPark = parkId => fetch(API + "parks/" + parkId).then(res => res.json());
 
 export const searchNPS = (category, parkCode) =>
-  fetch(API + `parks&nps_search=${category}&parkCode=${parkCode}`).then(res =>
-    res.json()
-  );
+  fetch(API + `parks&nps_search=${category}&parkCode=${parkCode}`).then(res => res.json());
 
 export const getTrips = (page = 1) => {
   if (localStorage.token)
@@ -121,6 +118,6 @@ export const deletePicture = pictureId =>
   }).then(res => res.json());
 
 export const flickrPictures = (parkName, page = 1) =>
-  fetch(
-    API + `pictures&search=${parkName.replace(/ /g, "+")}&page=${page}`
-  ).then(res => res.json());
+  fetch(API + `pictures&search=${parkName.replace(/ /g, "+")}&page=${page}`).then(res =>
+    res.json()
+  );

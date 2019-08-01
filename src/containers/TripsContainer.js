@@ -27,16 +27,19 @@ class TripsContainer extends Component {
       });
   };
 
+  getDisplayTrip = () => {
+    if (this.props.displayMyTrips && this.props.myTrips) return this.props.myTrips;
+    else if (this.props.trips) return this.props.trips;
+    else return [];
+  };
+
   render() {
-    let displayTrips =
-      this.props.displayMyTrips && this.props.myTrips
-        ? this.props.myTrips
-        : this.props.trips;
+    let displayTrips = this.getDisplayTrip();
     return (
       <InfiniteScroll
         dataLength={this.state.lastItemIndex}
         next={this.handleScroll}
-        height={window.innerHeight - window.innerHeight * 0.14}
+        height={window.innerHeight - window.innerHeight * 0.076}
         hasMore={this.state.hasMore}
         endMessage={
           <div className="d-flex justify-content-center">
@@ -45,25 +48,17 @@ class TripsContainer extends Component {
         }
       >
         {displayTrips.map(trip => (
-          <TripCard
-            trip={trip}
-            key={trip.id}
-            displayMyTrips={this.props.displayMyTrips}
-          />
+          <TripCard trip={trip} key={trip.id} displayMyTrips={this.props.displayMyTrips} />
         ))}
       </InfiniteScroll>
     );
   }
 }
 
-let mapStateToProps = state => ({
-  trips: state.trip.trips,
-  myTrips: state.user.loggedUser.sorted_trips
-});
 let mapDispatchToProps = dispatch => ({
   fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data })
 });
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(TripsContainer);

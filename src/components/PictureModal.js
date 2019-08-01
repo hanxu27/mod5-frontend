@@ -13,7 +13,7 @@ class PictureModal extends Component {
   state = this.initialState;
 
   closeModal = e => {
-    this.props.clearError()
+    this.props.clearError();
     this.props.closeModal();
   };
 
@@ -37,6 +37,7 @@ class PictureModal extends Component {
         this.props.closeModal();
         this.props.backToParks();
         this.props.fetchedProfile(data);
+        this.props.clearError();
         this.setState({ redirect: <Redirect to="/profile" /> });
       }
     });

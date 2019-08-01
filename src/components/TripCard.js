@@ -22,7 +22,7 @@ function TripCard(props) {
         <Card className="m-1 shadow">
           <Link to={"/parks/" + props.trip.park.id}>
             <Card.Header
-              as="Button"
+              as="h6"
               className="text-light"
               id="trip-card-title"
               style={{ background: "rgb(200, 110, 120)" }}

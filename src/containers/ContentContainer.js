@@ -32,7 +32,7 @@ function ContentContainer(props) {
           localStorage.token ? (
             <div className="d-flex justify-content-center">
               <Col lg={7}>
-                <TripsContainer />
+                <TripsContainer trips={props.trips} />
               </Col>
             </div>
           ) : (
@@ -45,5 +45,7 @@ function ContentContainer(props) {
   );
 }
 
-let mapStateToProps = state => state.user.loggedUser && { user: state.user.loggedUser.id };
+let mapStateToProps = state => ({
+  trips: state.trip.trips
+});
 export default connect(mapStateToProps)(ContentContainer);

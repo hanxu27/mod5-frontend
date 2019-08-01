@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { getParks, getProfile } from "./services/backend";
+import { getParks, getProfile, getTrips } from "./services/backend";
 import ContentContainer from "./containers/ContentContainer";
 import NavBar from "./components/NavigationBar";
 import ModalContainer from "./containers/ModalContainer";
@@ -11,7 +11,12 @@ import ErrorMsg from "./components/ErrorMsg";
 class App extends Component {
   componentDidMount() {
     getParks().then(this.props.fetchedParks);
-    getProfile().then(this.props.fetchedProfile);
+    if (localStorage.token) {
+      getProfile().then(this.props.fetchedProfile);
+      getTrips().then(({ trips }) => {
+        this.props.fetchedTrips(trips);
+      });
+    }
   }
 
   handleLogout = () => {
@@ -55,6 +60,7 @@ let mapDispatchToProps = dispatch => {
   return {
     fetchedParks: data => dispatch({ type: "FETCHED_PARKS", data }),
     fetchedProfile: user => dispatch({ type: "FETCHED_PROFILE", user }),
+    fetchedTrips: data => dispatch({ type: "FETCHED_TRIPS", data }),
     clearUser: () => dispatch({ type: "CLEAR_USER" }),
     clearTrips: () => dispatch({ type: "CLEAR_TRIPS" }),
     filterParks: filter => dispatch({ type: "FILTER_PARKS", filter })

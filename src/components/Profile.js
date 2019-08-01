@@ -22,7 +22,7 @@ class Profile extends Component {
     return (
       <Row className="m-2 d-flex justify-content-center">
         <Col sm={5}>
-          <Card className="m-1">
+          <Card className="m-1 shadow">
             <Row className="ml-1">
               <Col lg={6}>
                 <Card.Title className="m-2">
@@ -37,25 +37,26 @@ class Profile extends Component {
                   src={this.props.user.profile_url}
                 />
               </Col>
-              <Col lg={6}>
-                <Card.Title className="m-2">
-                  {this.props.user.last_picture &&
-                    `${this.props.user.last_picture.title} ⛳ ${
+              {this.props.user.last_picture && (
+                <Col lg={6}>
+                  <Card.Title className="m-2">
+                    {`${this.props.user.last_picture.title} ⛳ ${
                       this.props.user.last_picture.park.name
                     }`}
-                </Card.Title>
-                <Card.Img
-                  className="m-2 shadow-lg"
-                  style={{ width: "90%" }}
-                  variant="right"
-                  src={this.props.user.last_picture && this.props.user.last_picture.url}
-                />
-                <Card.Text>
-                  <Button className="m-2" variant="danger" size="sm" onClick={this.handleDelete}>
-                    Delete
-                  </Button>
-                </Card.Text>
-              </Col>
+                  </Card.Title>
+                  <Card.Img
+                    className="m-2 shadow-lg"
+                    style={{ width: "90%" }}
+                    variant="right"
+                    src={this.props.user.last_picture.url}
+                  />
+                  <Card.Text>
+                    <Button className="m-2" variant="danger" size="sm" onClick={this.handleDelete}>
+                      Delete
+                    </Button>
+                  </Card.Text>
+                </Col>
+              )}
             </Row>
             <Card.Body>
               {this.props.user.national_park_progress && (
@@ -126,7 +127,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col md={7}>
-          <TripsContainer displayMyTrips={true} />
+          <TripsContainer displayMyTrips={true} myTrips={this.props.user.sorted_trips} />
         </Col>
       </Row>
     );
