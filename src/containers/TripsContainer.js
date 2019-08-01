@@ -11,6 +11,7 @@ class TripsContainer extends Component {
   componentDidMount() {
     getTrips() &&
       getTrips(this.state.page).then(({ hasMore, trips }) => {
+        console.log(trips);
         this.props.fetchedTrips(trips);
         this.setState({ hasMore });
       });

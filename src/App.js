@@ -2,20 +2,16 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { getParks, getProfile, getTrips } from "./services/backend";
+import { getParks, getProfile } from "./services/backend";
 import ContentContainer from "./containers/ContentContainer";
 import NavBar from "./components/NavigationBar";
 import ModalContainer from "./containers/ModalContainer";
-import ErrorMsg from "./components/ErrorMsg";
 
 class App extends Component {
   componentDidMount() {
     getParks().then(this.props.fetchedParks);
     if (localStorage.token) {
       getProfile().then(this.props.fetchedProfile);
-      getTrips().then(({ trips }) => {
-        this.props.fetchedTrips(trips);
-      });
     }
   }
 
@@ -43,7 +39,7 @@ class App extends Component {
       <React.Fragment>
         {localStorage.token && <ModalContainer />}
         <NavBar handleLogout={this.handleLogout} handleFilter={this.handleFilter} />
-        {this.props.errorMsg.length > 0 && <ErrorMsg />}
+
         <ContentContainer />
       </React.Fragment>
     );
@@ -51,9 +47,7 @@ class App extends Component {
 }
 
 let mapStateToProps = state => {
-  return state.user.loggedUser
-    ? { user: state.user.loggedUser.id, errorMsg: state.error.message }
-    : { errorMsg: state.error.message };
+  return state.user.loggedUser && { user: state.user.loggedUser.id };
 };
 
 let mapDispatchToProps = dispatch => {

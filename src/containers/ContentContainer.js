@@ -24,7 +24,7 @@ function ContentContainer(props) {
       />
       <Route
         path="/login"
-        render={() => (localStorage.token ? <Redirect to="/profile" /> : <Login />)}
+        render={() => (props.user.id ? <Redirect to="/profile" /> : <Login />)}
       />
       <Route
         path="/trips"
@@ -46,6 +46,7 @@ function ContentContainer(props) {
 }
 
 let mapStateToProps = state => ({
-  trips: state.trip.trips
+  trips: state.trip.trips,
+  user: state.user.loggedUser
 });
 export default connect(mapStateToProps)(ContentContainer);

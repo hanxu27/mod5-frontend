@@ -7,6 +7,7 @@ import SignUpForm from "../components/SignUpForm";
 import SignInForm from "../components/SignInForm";
 import { signUp } from "../services/backend";
 import FancyPhoto from "../components/splash_login";
+import ErrorMsg from "../components/ErrorMsg";
 
 class Login extends Component {
   initialState = {
@@ -65,6 +66,7 @@ class Login extends Component {
   render() {
     return (
       <FancyPhoto>
+        {this.props.errorMsg.length > 0 && <ErrorMsg />}
         <Row className="mt-3 mb-5 justify-content-center">
           <Col sm={10} md={6} lg={4}>
             {this.state.showSignUpForm ? (
@@ -89,6 +91,7 @@ class Login extends Component {
   }
 }
 
+let mapStateToProps = state => ({ errorMsg: state.error.message });
 let mapDispatchToProps = dispatch => {
   return {
     handleSignIn: user => dispatch({ type: "HANDLE_SIGN_IN", user }),
@@ -97,6 +100,6 @@ let mapDispatchToProps = dispatch => {
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login);
