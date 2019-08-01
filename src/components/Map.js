@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import ReactMap, { Marker, Popup } from "react-map-gl";
 
+import { mapboxApiAccessToken, mapStyle } from "../apikeys";
 import "mapbox-gl/src/css/mapbox-gl.css";
 
 import ParkCard from "./ParkCard";
@@ -42,10 +43,8 @@ const Map = props => {
     <div>
       <ReactMap
         {...viewport}
-        mapboxApiAccessToken="pk.eyJ1IjoiaGFueHUyNyIsImEiOiJjanh1ajF5bTIxNXZhM2xyczF4cXN4ZjJqIn0.058kHvghPXmU2LOnp_9bwA"
-        // mapStyle='mapbox://styles/hanxu27/cjxujyxc99bwq1cs1kk4duz8a'
-        // mapStyle="mapbox://styles/hanxu27/cjxvx303m18ce1cqhd5dg3029"
-        mapStyle="mapbox://styles/hanxu27/cjygal1fu08m81cmsxxjlb91c"
+        mapboxApiAccessToken={mapboxApiAccessToken}
+        mapStyle={mapStyle}
         onViewportChange={viewport => setViewport(viewport)}
         minZoom={4}
         maxZoom={10}
