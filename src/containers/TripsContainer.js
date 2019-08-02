@@ -39,7 +39,7 @@ class TripsContainer extends Component {
       <InfiniteScroll
         dataLength={this.state.lastItemIndex}
         next={this.handleScroll}
-        height={window.innerHeight - window.innerHeight * 0.076}
+        height={window.innerHeight - window.innerHeight * 0.078}
         hasMore={this.state.hasMore}
         endMessage={
           <div className="d-flex justify-content-center">
