@@ -27,51 +27,52 @@ const NavigationBar = props => {
       <Navbar.Brand href="/">
         <GiDandelionFlower /> Parks Browser
       </Navbar.Brand>
+
+      <React.Fragment>
+        <Dropdown className="ml-2 mt-1" title="National Parks">
+          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+            Filter: {props.filter}{" "}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item name="National Park" onClick={e => handleFilter(e)}>
+              National Parks
+            </Dropdown.Item>
+            <Dropdown.Item name="National Monument" onClick={e => handleFilter(e)}>
+              National Monuments
+            </Dropdown.Item>
+            <Dropdown.Item name="Preserve" onClick={e => handleFilter(e)}>
+              National Preserves
+            </Dropdown.Item>
+            <Dropdown.Item name="National Historic Site" onClick={e => handleFilter(e)}>
+              Historic Sites
+            </Dropdown.Item>
+            <Dropdown.Item name="National Historical Park" onClick={e => handleFilter(e)}>
+              Historic Parks
+            </Dropdown.Item>
+            <Dropdown.Item name="Others" onClick={e => handleFilter(e)}>
+              Others
+            </Dropdown.Item>
+            <Dropdown.Item name="All" onClick={e => handleFilter(e)}>
+              All Parks
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </React.Fragment>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
+        <Form inline>
+          <FormControl
+            className="ml-2 mt-1"
+            type="text"
+            placeholder="Search..."
+            aria-label="Search"
+            onChange={searchChange}
+          />
+        </Form>
         <Nav className="mr-auto">
           <Nav.Item className="mt-1">
             <Nav.Link href="/map">Map</Nav.Link>
           </Nav.Item>
-          <React.Fragment>
-            <Dropdown className="ml-2 mt-1" title="National Parks">
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-                Filter: {props.filter}{" "}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item name="National Park" onClick={e => handleFilter(e)}>
-                  National Parks
-                </Dropdown.Item>
-                <Dropdown.Item name="National Monument" onClick={e => handleFilter(e)}>
-                  National Monuments
-                </Dropdown.Item>
-                <Dropdown.Item name="Preserve" onClick={e => handleFilter(e)}>
-                  National Preserves
-                </Dropdown.Item>
-                <Dropdown.Item name="National Historic Site" onClick={e => handleFilter(e)}>
-                  Historic Sites
-                </Dropdown.Item>
-                <Dropdown.Item name="National Historical Park" onClick={e => handleFilter(e)}>
-                  Historic Parks
-                </Dropdown.Item>
-                <Dropdown.Item name="Others" onClick={e => handleFilter(e)}>
-                  Others
-                </Dropdown.Item>
-                <Dropdown.Item name="All" onClick={e => handleFilter(e)}>
-                  All Parks
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Form inline>
-              <FormControl
-                className="ml-2 mt-1"
-                type="text"
-                placeholder="Search..."
-                aria-label="Search"
-                onChange={searchChange}
-              />
-            </Form>
-          </React.Fragment>
         </Nav>
       </Navbar.Collapse>
       <Nav className="ml-auto">
