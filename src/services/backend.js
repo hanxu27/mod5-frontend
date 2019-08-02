@@ -6,7 +6,8 @@ export const getParks = (query = "") => {
     return fetch(API + "parks", {
       method: "GET",
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "https://park-browser-frontend.herokuapp.com/",
+        mode: "cors"
       }
     }).then(res => res.json());
   else {
