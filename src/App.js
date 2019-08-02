@@ -9,7 +9,7 @@ import ModalContainer from "./containers/ModalContainer";
 
 class App extends Component {
   componentDidMount() {
-    getParks().then(this.props.fetchedParks);
+    getParks("National Park").then(this.props.fetchedParks);
     if (localStorage.token) {
       getProfile().then(this.props.fetchedProfile);
     }
@@ -39,7 +39,6 @@ class App extends Component {
       <React.Fragment>
         {localStorage.token && <ModalContainer />}
         <NavBar handleLogout={this.handleLogout} handleFilter={this.handleFilter} />
-
         <ContentContainer />
       </React.Fragment>
     );

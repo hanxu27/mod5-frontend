@@ -15,9 +15,9 @@ import ParkDetails from "../components/ParkDetails";
 function ContentContainer(props) {
   return (
     <Switch>
-      <Route exact path="/" render={() => <Map />} />
+      <Route exact path="/" render={() => <ParksContainer />} />
       <Route path="/parks/:id" render={props => <ParkDetails park={props.match.params.id} />} />
-      <Route path="/parks" render={() => <ParksContainer />} />
+      <Route path="/map" render={() => <Map />} />
       <Route
         path="/profile"
         render={() => (localStorage.token ? <Profile /> : <Redirect to="/login" />)}

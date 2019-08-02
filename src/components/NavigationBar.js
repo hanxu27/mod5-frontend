@@ -31,7 +31,7 @@ const NavigationBar = props => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Item className="mt-1">
-            <Nav.Link href="/parks">Parks</Nav.Link>
+            <Nav.Link href="/map">Map</Nav.Link>
           </Nav.Item>
           <React.Fragment>
             <Dropdown className="ml-2 mt-1" title="National Parks">
