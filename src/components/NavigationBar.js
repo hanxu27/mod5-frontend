@@ -70,7 +70,7 @@ const NavigationBar = props => {
           />
         </Form>
         <Nav className="ml-auto">
-          <Nav.Item className="mt-1">
+          <Nav.Item>
             <Nav.Link href="/map">Map</Nav.Link>
           </Nav.Item>
         </Nav>
