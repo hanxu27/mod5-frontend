@@ -29,7 +29,7 @@ const NavigationBar = props => {
       </Navbar.Brand>
 
       <React.Fragment>
-        <Dropdown className="ml-2 mt-1" title="National Parks">
+        <Dropdown className="ml-2 mt-1 mr-2" title="National Parks">
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">
             Filter: {props.filter}{" "}
           </Dropdown.Toggle>
@@ -69,7 +69,7 @@ const NavigationBar = props => {
             onChange={searchChange}
           />
         </Form>
-        <Nav className="mr-auto">
+        <Nav className="ml-auto">
           <Nav.Item className="mt-1">
             <Nav.Link href="/map">Map</Nav.Link>
           </Nav.Item>

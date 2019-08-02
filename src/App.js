@@ -9,7 +9,7 @@ import ModalContainer from "./containers/ModalContainer";
 
 class App extends Component {
   componentDidMount() {
-    getParks("National Park").then(this.props.fetchedParks);
+    this.handleFilter("National Park");
     if (localStorage.token) {
       getProfile().then(this.props.fetchedProfile);
     }
