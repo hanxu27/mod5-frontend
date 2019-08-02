@@ -43,8 +43,8 @@ const Map = props => {
     <div>
       <ReactMap
         {...viewport}
-        mapboxApiAccessToken={process.env.mapboxApiAccessToken}
-        mapStyle={process.env.mapStyle}
+        mapboxApiAccessToken={process.env.MAPBOX_API}
+        mapStyle={process.env.MAPBOX_STYLE}
         onViewportChange={viewport => setViewport(viewport)}
         minZoom={4}
         maxZoom={10}
