@@ -12,7 +12,7 @@ const ParkCard = props => {
       {img && (
         <Image
           className="card-img-bottom border shadow rounded-top"
-          style={{ maxHeight: "45rem", maxWidth: "45rem" }}
+          style={{ maxHeight: "30rem", maxWidth: "30rem" }}
           src={img.url}
           alt={img.caption}
         />

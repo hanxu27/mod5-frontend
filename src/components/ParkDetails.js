@@ -140,7 +140,7 @@ class ParkDetails extends Component {
                     <Tab className="p-2 shadow" eventKey="entranceFees" title="Entrance Fee">
                       <Accordion>
                         {this.state.entranceFees.map(f => {
-                          return <ParkEntranceFees fee={f} key={f.title} />;
+                          return <ParkEntranceFees fee={f} key={f.title + f.cost} />;
                         })}
                       </Accordion>
                     </Tab>

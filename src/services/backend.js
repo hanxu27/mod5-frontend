@@ -1,4 +1,5 @@
-const API = `http://localhost:3000/`;
+// const API = `http://localhost:3000/`;
+const API = "https://park-browser-backend.herokuapp.com/";
 
 export const getParks = (query = "") => {
   if (query === "") return fetch(API + "parks").then(res => res.json());

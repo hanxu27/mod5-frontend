@@ -10,7 +10,7 @@ const NavigationBar = props => {
 
   const searchChange = e => {
     if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
-      setRedirect(!redirect);
+      setRedirect(true);
     }
     props.searchChange(e.target.value);
   };
@@ -19,6 +19,7 @@ const NavigationBar = props => {
       setRedirect(true);
     }
     props.handleFilter(e.target.name);
+    setRedirect(false);
   };
   return (
     <Navbar expand="sm" variant="dark" bg="dark">
