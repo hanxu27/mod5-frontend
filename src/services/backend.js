@@ -2,7 +2,13 @@
 const API = "https://park-browser-backend.herokuapp.com/";
 
 export const getParks = (query = "") => {
-  if (query === "") return fetch(API + "parks").then(res => res.json());
+  if (query === "")
+    return fetch(API + "parks", {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }).then(res => res.json());
   else {
     let search = query.replace(/ /g, "+");
     return fetch(API + `parks&search=${search}`, {
@@ -27,6 +33,7 @@ export const getTrips = (page = 1) => {
         "Content-Type": "application/json",
         Accept: "application/json",
         Authorization: `Bearer ${localStorage.token}`
+        // "Access-Control-Allow-Origin": "*"
       }
     }).then(res => res.json());
 };
