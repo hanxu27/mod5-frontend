@@ -52,6 +52,6 @@ code {
 }
 
 .mapboxgl-popup {
-  max-height: 12rem;
-  max-width: 18rem;
+  max-height: 6rem;
+  max-width: 10rem;
 }
