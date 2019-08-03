@@ -69,37 +69,38 @@ const NavigationBar = props => {
             onChange={searchChange}
           />
         </Form>
-      </Navbar.Collapse>
-      <Nav className="ml-auto">
-        <Nav.Item>
-          <Nav.Link href="/map">Map</Nav.Link>
-        </Nav.Item>
-      </Nav>
-      <Nav className="ml-auto">
-        {props.user ? (
-          <React.Fragment>
-            <Nav.Item>
-              <Nav.Link href="/trips">Trips</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link name="profile" href="/profile">
-                Profile
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link name="logout" onClick={props.handleLogout}>
-                Logout
-              </Nav.Link>
-            </Nav.Item>
-          </React.Fragment>
-        ) : (
+
+        <Nav className="ml-auto">
           <Nav.Item>
-            <Nav.Link name="login" href="/login">
-              Login
-            </Nav.Link>
+            <Nav.Link href="/map">Map</Nav.Link>
           </Nav.Item>
-        )}
-      </Nav>
+        </Nav>
+        <Nav className="ml-auto">
+          {props.user ? (
+            <React.Fragment>
+              <Nav.Item>
+                <Nav.Link href="/trips">Trips</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link name="profile" href="/profile">
+                  Profile
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link name="logout" onClick={props.handleLogout}>
+                  Logout
+                </Nav.Link>
+              </Nav.Item>
+            </React.Fragment>
+          ) : (
+            <Nav.Item>
+              <Nav.Link name="login" href="/login">
+                Login
+              </Nav.Link>
+            </Nav.Item>
+          )}
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 };

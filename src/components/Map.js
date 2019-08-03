@@ -13,7 +13,7 @@ const Map = props => {
   const [viewport, setViewport] = useState({
     latitude: 38.560954,
     longitude: -98.93524,
-    zoom: 4,
+    zoom: 3,
     width: "100vw",
     height: "93.9vh"
   });
@@ -48,8 +48,8 @@ const Map = props => {
         mapboxApiAccessToken="pk.eyJ1IjoiaGFueHUyNyIsImEiOiJjanh1ajF5bTIxNXZhM2xyczF4cXN4ZjJqIn0.058kHvghPXmU2LOnp_9bwA"
         mapStyle="mapbox://styles/hanxu27/cjyswl9mc0yu71coh09kbmaql"
         onViewportChange={viewport => setViewport(viewport)}
-        minZoom={4}
-        maxZoom={10}
+        minZoom={3}
+        maxZoom={8}
       >
         {displayParks(props.parks, props.search).map(parkMarker)}
         {selected && (
@@ -57,7 +57,7 @@ const Map = props => {
             latitude={getLat(selected)}
             longitude={getLong(selected)}
             onClose={() => setSelected(null)}
-            style={{ maxHeight: "20rem", maxWidth: "20rem" }}
+            style={{ maxHeight: "16rem", maxWidth: "16rem" }}
           >
             <ParkCard park={selected} />
           </Popup>
