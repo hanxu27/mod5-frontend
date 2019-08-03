@@ -69,12 +69,12 @@ const NavigationBar = props => {
             onChange={searchChange}
           />
         </Form>
-        <Nav className="ml-auto">
-          <Nav.Item>
-            <Nav.Link href="/map">Map</Nav.Link>
-          </Nav.Item>
-        </Nav>
       </Navbar.Collapse>
+      <Nav className="ml-auto">
+        <Nav.Item>
+          <Nav.Link href="/map">Map</Nav.Link>
+        </Nav.Item>
+      </Nav>
       <Nav className="ml-auto">
         {props.user ? (
           <React.Fragment>

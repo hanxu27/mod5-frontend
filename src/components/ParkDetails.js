@@ -149,12 +149,12 @@ class ParkDetails extends Component {
                 <hr />
                 <Link to="/">
                   <Button variant="warning" className="mb-2 mr-1 shadow">
-                    To Map
+                    To Parks
                   </Button>
                 </Link>
-                <Link to="/parks">
+                <Link to="/map">
                   <Button variant="primary" className="mb-2 shadow">
-                    To Parks
+                    To Map
                   </Button>
                 </Link>
                 {this.props.user.id && (
