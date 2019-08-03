@@ -57,7 +57,6 @@ const Map = props => {
             latitude={getLat(selected)}
             longitude={getLong(selected)}
             onClose={() => setSelected(null)}
-            style={{ maxHeight: "16rem", maxWidth: "16rem" }}
           >
             <ParkCard park={selected} />
           </Popup>

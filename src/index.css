@@ -50,3 +50,8 @@ code {
     column-count: 2;
   }
 }
+
+.mapboxgl-popup {
+  max-height: 16rem;
+  max-width: 16rem;
+}
