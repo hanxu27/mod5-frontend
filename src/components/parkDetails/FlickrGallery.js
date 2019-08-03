@@ -33,7 +33,7 @@ const FlickrGallery = props => {
       <InfiniteScroll
         dataLength={lastItemIndex}
         next={handleScroll}
-        height={window.innerHeight - window.innerHeight * 0.18}
+        height={window.innerHeight - window.innerHeight * 0.2}
         hasMore={true}
         endMessage={
           <div className="d-flex justify-content-center">
