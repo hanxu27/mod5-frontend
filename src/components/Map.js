@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import ReactMap, { Marker, Popup } from "react-map-gl";
+import { Container } from "react-bootstrap";
 
 // import { mapboxApiAccessToken, mapStyle } from "../apikeys";
 import "mapbox-gl/src/css/mapbox-gl.css";
@@ -58,7 +59,9 @@ const Map = props => {
             longitude={getLong(selected)}
             onClose={() => setSelected(null)}
           >
-            <ParkCard park={selected} />
+            <Container>
+              <ParkCard park={selected} />
+            </Container>
           </Popup>
         )}
       </ReactMap>

@@ -51,7 +51,7 @@ code {
   }
 }
 
-.mapboxgl-popup {
-  max-height: 15rem;
+.mapboxgl-popup .container {
   max-width: 15rem;
+  max-height: auto;
 }
