@@ -9,13 +9,13 @@ const NavigationBar = props => {
   const [redirect, setRedirect] = useState(false);
 
   const searchChange = e => {
-    if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
+    if (!(props.location.pathname === "/map" || props.location.pathname === "/")) {
       setRedirect(true);
     }
     props.searchChange(e.target.value);
   };
   const handleFilter = e => {
-    if (!(props.location.pathname === "/parks" || props.location.pathname === "/")) {
+    if (!(props.location.pathname === "/map" || props.location.pathname === "/")) {
       setRedirect(true);
     }
     props.handleFilter(e.target.name);
@@ -23,7 +23,7 @@ const NavigationBar = props => {
   };
   return (
     <Navbar expand="sm" variant="dark" bg="dark">
-      {redirect && <Redirect to="/parks" />}
+      {redirect && <Redirect to="/" />}
       <Navbar.Brand href="/">
         <GiDandelionFlower /> Parks Browser
       </Navbar.Brand>
