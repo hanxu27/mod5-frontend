@@ -19,7 +19,6 @@ const NavigationBar = props => {
       setRedirect(true);
     }
     props.handleFilter(e.target.name);
-    setRedirect(false);
   };
   return (
     <Navbar expand="sm" variant="dark" bg="dark">
@@ -27,37 +26,34 @@ const NavigationBar = props => {
       <Navbar.Brand href="/">
         <GiDandelionFlower /> Parks Browser
       </Navbar.Brand>
-
-      <React.Fragment>
-        <Dropdown className="ml-2 mt-1 mr-2" title="National Parks">
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            Filter: {props.filter}{" "}
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item name="National Park" onClick={e => handleFilter(e)}>
-              National Parks
-            </Dropdown.Item>
-            <Dropdown.Item name="National Monument" onClick={e => handleFilter(e)}>
-              National Monuments
-            </Dropdown.Item>
-            <Dropdown.Item name="Preserve" onClick={e => handleFilter(e)}>
-              National Preserves
-            </Dropdown.Item>
-            <Dropdown.Item name="National Historic Site" onClick={e => handleFilter(e)}>
-              Historic Sites
-            </Dropdown.Item>
-            <Dropdown.Item name="National Historical Park" onClick={e => handleFilter(e)}>
-              Historic Parks
-            </Dropdown.Item>
-            <Dropdown.Item name="Others" onClick={e => handleFilter(e)}>
-              Others
-            </Dropdown.Item>
-            <Dropdown.Item name="All" onClick={e => handleFilter(e)}>
-              All Parks
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </React.Fragment>
+      <Dropdown className="ml-2 mt-1 mr-2" title="National Parks">
+        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+          Filter: {props.filter}{" "}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item name="National Park" onClick={e => handleFilter(e)}>
+            National Parks
+          </Dropdown.Item>
+          <Dropdown.Item name="National Monument" onClick={e => handleFilter(e)}>
+            National Monuments
+          </Dropdown.Item>
+          <Dropdown.Item name="Preserve" onClick={e => handleFilter(e)}>
+            National Preserves
+          </Dropdown.Item>
+          <Dropdown.Item name="National Historic Site" onClick={e => handleFilter(e)}>
+            Historic Sites
+          </Dropdown.Item>
+          <Dropdown.Item name="National Historical Park" onClick={e => handleFilter(e)}>
+            Historic Parks
+          </Dropdown.Item>
+          <Dropdown.Item name="Others" onClick={e => handleFilter(e)}>
+            Others
+          </Dropdown.Item>
+          <Dropdown.Item name="All" onClick={e => handleFilter(e)}>
+            All Parks
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Form inline>
